@@ -1,0 +1,26 @@
+language: ruby
+cache:
+  bundler: true
+
+rvm:
+  - 2.0.0
+
+# Uncomment for Email or Hipchat notifications
+# notifications:
+#  email: false
+#  hipchat:
+#    rooms:
+#      - be7b87abac22a4dcd0f2dfb1f852b7@263852
+#    on_success: change
+
+bundler_args: "--without development"
+
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  # Change database name
+  - psql -c 'create database railsroots_test;' -U postgres
+  - RAILS_ENV=test bundle exec rake db:migrate db:test:prepare
+
+script:
+  - bundle exec rake code_analysis
+  - bundle exec rake spec
