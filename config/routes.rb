@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 Railsroot::Application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :users, path: 'api/v1/users/', controllers: {
     sessions: 'api/v1/sessions',
     registrations: 'api/v1/registrations',
