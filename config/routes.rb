@@ -15,11 +15,7 @@ Railsroot::Application.routes.draw do
 
   namespace :api, defaults: { format: :json }  do
     namespace :v1 do
-      resources :users, only: [:update] do
-        collection do
-          post :facebook_login
-        end
-      end
+      resources :users, only: [:update]
     end
   end
 end
