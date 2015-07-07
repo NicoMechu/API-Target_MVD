@@ -8,6 +8,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create(email: 'test1@gmail.com', password: '123456789', password_confirmation: '123456789')
-User.create(email: 'test2@yahoo.com', password: '123456789', password_confirmation: '123456789')
-User.create(email: 'test3@test.com', password: '123456789', password_confirmation: '123456789')
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if direction == :up
