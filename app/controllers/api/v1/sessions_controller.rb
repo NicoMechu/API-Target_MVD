@@ -8,7 +8,7 @@ module Api
 
       # POST /resource/sign_in
       def create
-        if params[:type]=='facebook'
+        if params[:type] == 'facebook'
           resource = User.find_or_create_by_fb(user_params)
         else
           resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
@@ -53,7 +53,6 @@ module Api
       def json_request?
         request.format.json?
       end
-
     end
   end
 end
