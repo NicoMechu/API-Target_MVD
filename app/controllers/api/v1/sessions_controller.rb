@@ -8,7 +8,11 @@ module Api
 
       # POST /resource/sign_in
       def create
-        resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
+        if params[:type]=='facebook'
+          resource = User.find_or_create_by_fb(user_params)
+        else
+          resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
+        end
         sign_in_and_redirect(resource_name, resource)
       end
 
@@ -34,11 +38,22 @@ module Api
         render json: { errors: ['Login failed.'] }, status: :bad_request
       end
 
+      private
+
+      def user_params
+        params.require(:user).permit(
+            :username, :first_name,
+            :last_name, :facebook_id, :email,
+            :welcome_screen, :how_to_trade,
+            :notifications)
+      end
+
       protected
 
       def json_request?
         request.format.json?
       end
+
     end
   end
 end

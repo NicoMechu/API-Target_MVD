@@ -12,12 +12,6 @@ module Api
         end
       end
 
-      # POST /api/v1/users/facebook_login
-      def facebook_login
-        user_params
-        @user = User.find_or_create_by_fb(params[:user])
-      end
-
       private
 
       def render_bad_request
@@ -26,10 +20,10 @@ module Api
 
       def user_params
         params.require(:user).permit(
-          :username, :first_name,
-          :last_name, :facebook_id, :email,
-          :welcome_screen, :how_to_trade,
-          :notifications)
+            :username, :first_name,
+            :last_name, :facebook_id, :email,
+            :welcome_screen, :how_to_trade,
+            :notifications)
       end
     end
   end

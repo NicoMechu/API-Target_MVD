@@ -42,46 +42,4 @@ describe Api::V1::UsersController do
       expect(response.response_code).to eq 400
     end
   end
-
-  describe "POST 'facebook_login'" do
-    before :each do
-      @user = FactoryGirl.create(:user)
-      @fb_user = FactoryGirl.create(:user_with_fb)
-      @params = {
-        facebook_id:    '1234567890',
-        first_name:     'test',
-        last_name:      'dude'
-      }
-    end
-
-    context 'with valid params' do
-      context 'when the user does not exists' do
-        it 'should create a new facebook user' do
-          expect { post :facebook_login, user: @params , format: 'json' }.to change { User.count }.by(1)
-          fb_user = User.find_by(facebook_id: @params[:facebook_id], first_name: @params[:first_name], last_name: @params[:last_name])
-          expect(fb_user).to_not be_nil
-          expect(response.response_code).to eq 200
-          parsed_response = JSON.parse(response.body)
-          expect(parsed_response['token']).to eq fb_user.authentication_token
-        end
-      end
-
-      context 'when the user exists' do
-        it 'should not create a new user record' do
-          @new_user = { facebook_id: @fb_user.facebook_id, first_name: @fb_user.first_name, last_name: @fb_user.last_name }
-          expect { post :facebook_login, user: @new_user, format: :json }.not_to change { User.count }
-        end
-      end
-    end
-
-    context 'with invalid params' do
-      it 'should not create an user on empty data' do
-        expect { post :facebook_login, user: {} , format: 'json' }.not_to change { User.count }
-      end
-
-      it 'should not create an user on bad data' do
-        expect { post :facebook_login, user: { facebook_id: '', first_name: 'some' } , format: 'json' }.not_to change { User.count }
-      end
-    end
-  end
 end
