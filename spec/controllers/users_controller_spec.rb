@@ -14,7 +14,6 @@ describe Api::V1::UsersController do
     it 'allows an user to be updated' do
       @attr = { username: 'new username' }
       request.headers['X-USER-TOKEN'] = @user.authentication_token
-      request.headers['X-USER-EMAIL'] = @user.email
       put :update, id: @user.id, user: @attr, format: 'json'
       parsed_response = JSON.parse(response.body)
       @user.reload
@@ -24,8 +23,7 @@ describe Api::V1::UsersController do
 
     it 'should not allow to update an user (bad auth)' do
       @attr = { username: 'new username' }
-      request.headers['X-USER-TOKEN'] = @user.authentication_token
-      request.headers['X-USER-EMAIL'] = 'bademail'
+      request.headers['X-USER-TOKEN'] = @user.authentication_token + 'wrong'
       put :update, id: @user.id, user: @attr, format: 'json'
       @user.reload
       expect(response.status).to eq 401
@@ -35,7 +33,6 @@ describe Api::V1::UsersController do
     it 'should not allow to update an user (bad data)' do
       @attr = { email: 'notanemail' }
       request.headers['X-USER-TOKEN'] = @user.authentication_token
-      request.headers['X-USER-EMAIL'] = @user.email
       put :update, id: @user.id, user: @attr, format: 'json'
       @user.reload
       expect(@user.username).to_not eq @attr[:username]

@@ -4,23 +4,19 @@ module Api
       module Authenticable
         extend ActiveSupport::Concern
         included do
-          before_action :authenticate_user_token, unless: :non_authenticable_methods
+          before_action :ensure_authenticated_user!, unless: :non_authenticable_methods
         end
 
-        def authenticate_user_token
-          if current_user.blank?
-            render json: { errors: ['You need to provide a valid token and email/fb'] }, status: :unauthorized
-          end
+        def ensure_authenticated_user!
+          return true if current_user.present?
+          render json: { errors: ['You need to provide a valid token and email/fb'] }, status: :unauthorized
         end
 
         # TODO, rethink this and evaluate to move this to independent
         # skip_before_action callbacks on individual controllers
 
         def non_authenticable_methods
-          request.method == 'OPTIONS' ||
-          non_authenticable_devise_methods ||
-          non_authenticable_api_methods ||
-          (controller_name == 'users' && (action_name == 'facebook_login'))
+          non_authenticable_devise_methods || non_authenticable_api_methods
         end
 
         def non_authenticable_api_methods
@@ -42,6 +38,14 @@ module Api
 
         def non_authenticable_passwords
           (devise_controller? && controller_name == 'passwords' && (action_name == 'create' || action_name == 'update'))
+        end
+
+        private
+
+        # Override this method in order to get the current user using only the auth token
+        def find_record_from_identifier(entity)
+          super if entity.model != User || request.headers['X-USER-TOKEN'].blank?
+          entity.model.find_by authentication_token: request.headers['X-USER-TOKEN']
         end
       end
     end

@@ -3,10 +3,6 @@ API Template
 
 Template API project with simple token authentication and devise. Every request must be signed with an authentication token header (X-USER-TOKEN).
 
-If the user was registered via email, an X-USER-EMAIL header with the user's email must be provided.
-
-If the user was registered via facebook an X-USER-FACEBOOK header with the facebook id must be provided.
-
 You can use params instead of headers.
 
 1.  Clone this repo
@@ -52,7 +48,7 @@ curl -X POST -H "Accept: application/json"  -H "Content-Type: application/json" 
 Sign out
 --------------
 ```
-curl -X DELETE -H "X-USER-TOKEN: MTMEGgwVZxUidW2-iMjj" -H "X-USER-EMAIL: hello@hello.com" -H "Content-Type: application/json" http://localhost:3000/api/v1/users/sign_out
+curl -X DELETE -H "X-USER-TOKEN: MTMEGgwVZxUidW2-iMjj" -H "Content-Type: application/json" http://localhost:3000/api/v1/users/sign_out
 ```
 Reset password
 --------------
@@ -65,7 +61,7 @@ curl -X PUT -H "Content-Type: application/json" http://localhost:3000/api/v1/use
 Update user
 --------------
 ```
-curl -X PUT -H "X-USER-TOKEN: vxKbHC4zQoYZp2ztJjVB" -H "X-USER-EMAIL: hello@hello.com" -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/3 -d '{"user":{"username":"juancito"}}'
+curl -X PUT -H "X-USER-TOKEN: vxKbHC4zQoYZp2ztJjVB" -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/3 -d '{"user":{"username":"juancito"}}'
 ```
 
 Facebook Login
