@@ -22,6 +22,7 @@ gem 'haml', '~> 4.0.6'
 gem 'jbuilder', '~> 1.2'
 gem 'koala', '~> 1.10.0rc'
 gem 'rails_12factor', '~> 0.0.3', group: :production
+gem 'rack-cors', '~> 0.4.0', require: 'rack/cors'
 gem 'simple_token_authentication', '~> 1.6.0'
 
 
