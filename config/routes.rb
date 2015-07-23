@@ -11,8 +11,6 @@ Railsroot::Application.routes.draw do
 
   root 'api/v1/api#status'
 
-  match '*all', to: 'application#cors_preflight_check', via: [:options]
-
   namespace :api, defaults: { format: :json }  do
     namespace :v1 do
       resources :users, only: [:update]
