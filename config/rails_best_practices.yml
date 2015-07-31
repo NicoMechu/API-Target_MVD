@@ -22,8 +22,13 @@ ProtectMassAssignmentCheck: { }
 RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: { }
-RemoveUnusedMethodsInControllersCheck: { except_methods: ['Api::V1::SessionsController#failure',
- 'Api::V1::ApiController#process_errors', 'Api::V1::UsersController#render_bad_request']  }
+RemoveUnusedMethodsInControllersCheck: { except_methods: [
+  'Api::V1::SessionsController#failure',
+  'Api::V1::ApiController#process_errors',
+  'Api::V1::UsersController#render_bad_request',
+  'Api::V1::ApiController#find_record_from_identifier',
+  'Api::V1::SessionsController#destroy']
+}
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
 RemoveUnusedMethodsInModelsCheck: { ignored_files: ['.*typeable\.rb'], except_methods: ['User#full_name', 'User#password_required?', 'User#email_required?'] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }

@@ -44,8 +44,9 @@ module Api
 
         # Override this method in order to get the current user using only the auth token
         def find_record_from_identifier(entity)
-          super if entity.model != User || request.headers['X-USER-TOKEN'].blank?
-          entity.model.find_by authentication_token: request.headers['X-USER-TOKEN']
+          user_token = request.headers['X-USER-TOKEN']
+          super if entity.model != User || user_token.blank?
+          User.find_by authentication_token: user_token
         end
       end
     end
