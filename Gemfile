@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 source 'https://rubygems.org'
-ruby "2.1.3"
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.2'
@@ -37,7 +37,7 @@ group :development do
   # Code analysis tools
   gem 'rails_best_practices'
   gem 'reek', '~> 1.3.6'
-  gem 'rubocop', '~> 0.19.0'
+  gem 'rubocop', '~> 0.32.1'
 end
 
 group :development, :test do

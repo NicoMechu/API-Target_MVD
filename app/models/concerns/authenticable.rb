@@ -5,12 +5,12 @@ module Authenticable
 
   included do
     acts_as_token_authenticatable
-    devise  :database_authenticatable,  #  Password and password confirmation fields
-            :recoverable,               #  Reset the password
-            :registerable,
-            :trackable,                 #  Track the user IP
-            :validatable,               #  Validate the email
-            :async                      #  Send emails async
+    devise :database_authenticatable,  #  Password and password confirmation fields
+           :recoverable,               #  Reset the password
+           :registerable,
+           :trackable,                 #  Track the user IP
+           :validatable,               #  Validate the email
+           :async                      #  Send emails async
 
     validates :email, uniqueness: true, allow_blank: true, allow_nil: true
     validates :encrypted_password, uniqueness: false, allow_nil: true

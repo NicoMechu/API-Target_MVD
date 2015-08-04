@@ -20,11 +20,10 @@ module Facebookeable
   end
 
   def send_fb_notification(message)
-    if facebook_id.present? && notifications
-      oauth = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'])
-      oauth_token = oauth.get_app_access_token
-      graph = Koala::Facebook::API.new(oauth_token)
-      graph.put_connections(facebook_id, 'notifications', template: message)
-    end
+    return unless facebook_id.present? && notifications
+    oauth = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'])
+    oauth_token = oauth.get_app_access_token
+    graph = Koala::Facebook::API.new(oauth_token)
+    graph.put_connections(facebook_id, 'notifications', template: message)
   end
 end

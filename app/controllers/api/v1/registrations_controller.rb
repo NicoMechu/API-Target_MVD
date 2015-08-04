@@ -31,14 +31,15 @@ module Api
       def save_fail
         clean_up_passwords resource
         @validatable = devise_mapping.validatable?
-        if @validatable
-          @minimum_password_length = resource_class.password_length.min
-        end
+        @minimum_password_length = resource_class.password_length.min if @validatable
       end
 
       def configure_permitted_parameters
-        devise_parameter_sanitizer.for(:sign_up) \
-          { |params| params.permit(:username, :email, :password, :password_confirmation, :invitation_token) }
+        devise_parameter_sanitizer.for :sign_up do |params|
+          params.permit(
+            :username, :email, :password, :password_confirmation, :invitation_token
+          )
+        end
       end
 
       def json_request?

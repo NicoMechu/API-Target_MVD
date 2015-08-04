@@ -26,7 +26,7 @@ module Api
           resource.unlock_access! if unlockable?(resource)
           head :no_content
         else
-          return render json: { errors: errors }, status: :bad_request
+          render json: { errors: errors }, status: :bad_request
         end
       end
 

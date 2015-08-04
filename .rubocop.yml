@@ -1,12 +1,17 @@
 AllCops:
-  Includes:
+  Include:
     - '**/*.gemspec'
     - '**/Rakefile'
-  Excludes:
-    - 'db/*'
-    - 'bin/*'
-    - 'lib/*'
-    - 'config/*'
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'lib/**/*'
+    - 'config/**/*'
+
+AbcSize:
+  Exclude:
+    - 'app/controllers/api/v1/passwords_controller.rb'
+    - 'app/controllers/api/v1/registrations_controller.rb'
 
 LineLength:
   Description: 'Limit lines to 130 characters.'
@@ -42,7 +47,6 @@ RegexpLiteral:
                  `MaxSlashes` '/' characters.
                  Use %r only for regular expressions matching more than
                  `MaxSlashes` '/' character.
-  MaxSlashes: 1
 
 # Align with the style guide.
 CollectionMethods:

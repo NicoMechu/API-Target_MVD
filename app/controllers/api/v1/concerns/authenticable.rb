@@ -29,7 +29,7 @@ module Api
 
         def non_authenticable_sessions
           devise_controller? && controller_name == 'sessions' &&
-          (action_name == 'create' || action_name == 'failure')
+            (action_name == 'create' || action_name == 'failure')
         end
 
         def non_authenticable_registrations
