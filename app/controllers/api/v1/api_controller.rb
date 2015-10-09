@@ -9,6 +9,7 @@ module Api
       respond_to :json
 
       rescue_from ActiveRecord::RecordNotFound,        with: :render_not_found
+      rescue_from ActiveRecord::RecordInvalid,         with: :render_record_invalid
       rescue_from ActionController::RoutingError,      with: :render_not_found
       rescue_from ActionController::UnknownController, with: :render_not_found
       rescue_from AbstractController::ActionNotFound,  with: :render_not_found
@@ -26,6 +27,11 @@ module Api
       def render_not_found(exception)
         logger.info(exception) # for logging
         render json: { error: exception.message }, status: :not_found
+      end
+
+      def render_record_invalid(exception)
+        logger.info(exception) # for logging
+        render json: { errors: exception.record.errors.as_json }, status: :bad_request
       end
     end
   end
