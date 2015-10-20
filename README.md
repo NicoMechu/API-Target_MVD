@@ -38,7 +38,7 @@ Example requests:
 Create User
 --------------
 ```
-curl -X POST -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/ -d '{"user":{"email":"hello@hello.com", "password":"12345678", "password_confirmation":"12345678"}, "invitation_token":"a5vsBMYYj_9HfNxYnKLg-w"}'
+curl -X POST -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/ -d '{"user":{"email":"hello@hello.com", "password":"12345678", "password_confirmation":"12345678"}}'
 ```
 Sign in User
 --------------
