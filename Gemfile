@@ -32,8 +32,6 @@ group :doc do
 end
 
 group :development do
-  gem 'dotenv', '~> 2.0.2'
-
   # Code analysis tools
   gem 'rails_best_practices'
   gem 'reek', '~> 1.3.6'

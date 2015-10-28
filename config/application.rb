@@ -8,6 +8,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+ENV.update YAML.load(File.read('config/application.yml'))[Rails.env] rescue {}
+
 module Railsroot
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those

@@ -14,7 +14,7 @@ module Api
           render json: { token: resource.authentication_token, email: resource.email }
         else
           save_fail
-          render json: { error: resource.errors.to_json }, status: :bad_request
+          render json: { error: resource.errors }, status: :bad_request
         end
       end
 
