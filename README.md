@@ -38,12 +38,12 @@ Example requests:
 Create User
 --------------
 ```
-curl -X POST -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/ -d '{"user":{"email":"hello@hello.com", "password":"12345678", "password_confirmation":"12345678"}}'
+curl -X POST -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/ -d '{"user":{"email":"hello@hello.com", "password":"123456789", "password_confirmation":"123456789"}}'
 ```
 Sign in User
 --------------
 ```
-curl -X POST -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/sign_in -d '{"user":{"email":"hello@hello.com", "password":"12345678"}}'
+curl -X POST -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:3000/api/v1/users/sign_in -d '{"user":{"email":"hello@hello.com", "password":"123456789"}}'
 ```
 Sign out
 --------------
