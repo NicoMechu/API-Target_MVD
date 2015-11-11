@@ -51,6 +51,10 @@ group :test do
   gem 'shoulda-matchers', '~> 2.8.0'
 end
 
+group :assets do
+  gem 'uglifier', '~> 2.7.2'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
