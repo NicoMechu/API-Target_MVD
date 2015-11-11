@@ -279,6 +279,9 @@ GEM
     tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
 
@@ -310,6 +313,7 @@ DEPENDENCIES
   simple_token_authentication (~> 1.6.0)
   spork-rails (~> 4.0.0)
   thin (~> 1.6.3)
+  uglifier (~> 2.7.2)
 
 BUNDLED WITH
    1.10.6
