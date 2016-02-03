@@ -14,20 +14,20 @@ module Authenticable
 
     validates :email, uniqueness: true, allow_blank: true, allow_nil: true
     validates :encrypted_password, uniqueness: false, allow_nil: true
-  end
 
-  def invalidate_token
-    self.authentication_token = ''
-    self.save!
-  end
+    def invalidate_token
+      self.authentication_token = ''
+      self.save!
+    end
 
-  protected
+    protected
 
-  def password_required?
-    !password.nil? || !password_confirmation.nil?
-  end
+    def password_required?
+      !password.nil? || !password_confirmation.nil?
+    end
 
-  def email_required?
-    false
+    def email_required?
+      false
+    end
   end
 end
