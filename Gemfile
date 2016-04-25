@@ -21,6 +21,7 @@ gem 'delayed_job_active_record', '~> 4.0.3'
 gem 'haml', '~> 4.0.6'
 gem 'jbuilder', '~> 1.2'
 gem 'koala', '~> 1.10.0rc'
+gem 'pry-rails', '~> 0.3.4'
 gem 'rails_12factor', '~> 0.0.3', group: :production
 gem 'rack-cors', '~> 0.4.0', require: 'rack/cors'
 gem 'simple_token_authentication', '~> 1.6.0'
@@ -36,6 +37,11 @@ group :development do
   gem 'rails_best_practices'
   gem 'reek', '~> 1.3.6'
   gem 'rubocop', '~> 0.32.1'
+  gem 'letter_opener', '~> 1.4.1'
+  gem 'pry-byebug', '~> 3.3.0'
+  gem 'quiet_assets', '~> 1.1.0'
+  gem 'better_errors', '~> 2.1.1'
+  gem 'binding_of_caller', '~> 0.7.2'
 end
 
 group :development, :test do
