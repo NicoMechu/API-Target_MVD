@@ -1,10 +1,10 @@
 # encoding: utf-8
 
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.2'
+gem 'rails', '~> 4.2.6'
 
 # Use postgres as the database for Active Record
 gem 'pg', '~> 0.18.2'
@@ -34,7 +34,7 @@ end
 
 group :development do
   # Code analysis tools
-  gem 'rails_best_practices'
+  gem 'rails_best_practices', '~> 1.16.0'
   gem 'reek', '~> 1.3.6'
   gem 'rubocop', '~> 0.32.1'
   gem 'letter_opener', '~> 1.4.1'
