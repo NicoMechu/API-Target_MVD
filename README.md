@@ -63,7 +63,8 @@ http://localhost:3000/api/v1/users/sign_in -d\
 Sign out
 --------------
 ```
-curl -X DELETE -H "X-USER-TOKEN: MTMEGgwVZxUidW2-iMjj" -H "Content-Type: application/json"\ http://localhost:3000/api/v1/users/sign_out
+curl -X DELETE -H "X-USER-TOKEN: MTMEGgwVZxUidW2-iMjj" -H "Content-Type: application/json"\
+http://localhost:3000/api/v1/users/sign_out
 ```
 Reset password
 --------------
@@ -94,7 +95,7 @@ curl -X PUT -H "X-USER-TOKEN: vxKbHC4zQoYZp2ztJjVB" -H "Accept: application/json
 http://localhost:3000/api/v1/users/3 -d\ 
   '{ "user":
     {
-      "username":"juancito"
+      "username":"juanito"
     }
   }'
 ```
@@ -122,7 +123,7 @@ curl -X PUT -H "X-USER-TOKEN: f84KxyzgwsjDyoJjbwbJ" -H "X-USER-FACEBOOK: id1234"
 http://localhost:3000/api/v1/users/3 -d \
   '{ "user":
     {
-      "username":"juancito2"
+      "username":"juanito2"
     }
   }'
 ```
