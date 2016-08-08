@@ -7,8 +7,14 @@ module Api
 
       # POST /resource/sign_in
       def create
-        if params[:type] == 'facebook'
-          resource = User.find_or_create_by_fb user_params
+        if params[:type] == 'facebook' #TODO Verify correctness
+
+          res = Faraday.get 'https://graph.facebook.com/me' , { :access_token => params[:access_token] }
+          error!('401 Unauthorized', 401) if res.status != 200
+          facebook_id = JSON.parse(res.body)['id']
+          error!('401 Unauthorized', 401) if facebook_id != params[:facebook_id]
+          resource = User.find_by_facebook_id(facebook_id)
+
         else
           resource = warden.authenticate! scope: resource_name, recall: "#{controller_path}#failure"
         end
@@ -38,7 +44,7 @@ module Api
       def user_params
         params.require(:user).permit(
           :username, :first_name,
-          :last_name, :facebook_id, :email,
+          :last_name, :birth_year, :facebook_id, :email,
           :welcome_screen, :how_to_trade,
           :notifications
         )

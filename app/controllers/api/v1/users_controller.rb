@@ -21,7 +21,7 @@ module Api
       def user_params
         params.require(:user).permit(
           :username, :first_name,
-          :last_name, :facebook_id, :email,
+          :last_name,  :birth_year, :facebook_id, :email,
           :welcome_screen, :how_to_trade,
           :notifications)
       end

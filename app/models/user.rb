@@ -20,6 +20,7 @@
 #  facebook_id            :string           default("")
 #  created_at             :datetime
 #  updated_at             :datetime
+#  birth_year             :integer
 #
 # Indexes
 #
@@ -34,7 +35,14 @@ class User < ActiveRecord::Base
   include Authenticable
   include Facebookeable
 
+  has_many :targets
   validates :username, uniqueness: true, allow_blank: true, allow_nil: true
+  validates_presence_of :username, :email, :first_name, :password, :birth_year
+
+  def to_s
+    return username unless first_name.present?
+    "#{first_name} #{last_name}"
+  end
 
   def full_name
     return username unless first_name.present?

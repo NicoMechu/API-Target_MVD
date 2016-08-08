@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706174705) do
+ActiveRecord::Schema.define(version: 20160808145759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "cube"
+  enable_extension "earthdistance"
+
+  create_table "Prueba", primary_key: "Id", force: :cascade do |t|
+    t.float "lat"
+    t.float "lng"
+  end
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -65,6 +72,22 @@ ActiveRecord::Schema.define(version: 20150706174705) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "targets", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.float    "lat"
+    t.float    "lng"
+    t.integer  "radio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: ""
     t.string   "encrypted_password",     default: "", null: false
@@ -82,6 +105,7 @@ ActiveRecord::Schema.define(version: 20150706174705) do
     t.string   "facebook_id",            default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "birth_year"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

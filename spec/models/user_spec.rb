@@ -20,6 +20,7 @@
 #  facebook_id            :string           default("")
 #  created_at             :datetime
 #  updated_at             :datetime
+#  birth_year             :integer
 #
 # Indexes
 #

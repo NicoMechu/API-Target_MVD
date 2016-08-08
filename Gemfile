@@ -7,7 +7,7 @@ ruby '2.3.1'
 gem 'rails', '~> 4.2.6'
 
 # Use postgres as the database for Active Record
-gem 'pg', '~> 0.18.2'
+gem 'pg', '~> 0.18.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'activeadmin', '~> 1.0.0.pre1'
