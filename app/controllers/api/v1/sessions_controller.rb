@@ -55,7 +55,7 @@ module Api
           res = Faraday.get 'https://graph.facebook.com/me' , { :access_token => access_token}
           error!('401 Unauthorized', 401) if res.status != 200
           res_fb_id = JSON.parse(res.body)['id']
-          error!('401 Unauthorized', 401) if fb_id != facebook_id
+          error!('401 Unauthorized', 401) if res_fb_id != facebook_id
       end
     end
   end

@@ -51,10 +51,10 @@ describe Api::V1::SessionsController do
       @user = FactoryGirl.create(:user)
       @fb_user = FactoryGirl.create(:user_with_fb)
       @params = {
-          facebook_id:      '1234567890',
+          facebook_id:      '1677408549245902',
           first_name:       'test',
           last_name:        'dude',
-          fb_access_token:  'vbuif123n8cn'
+          fb_access_token:  'EAACk2VMYNa0BAAe4KIniRCp3pwBxHDPCyKGLVnOyJ7IAoY3m7WfMW9x8cCxJ4EmErPBYoRk1VjGcpMmkk0EvfJYxj2lvECh1SnRpGiZCa6J2npKJvgF6xaLWkvOqJcfialRE3gngPtZBs5OlXhInAhqq9g3rXBsMFHatb1nWNCXkWyZAZAzzZB6dQtox7V1iPgghsCS2BIM8GcJdLLMljk66mgUYmfXQZD'
       }
     end
 
