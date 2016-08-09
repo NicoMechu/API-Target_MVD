@@ -8,7 +8,8 @@ module Api
 
 
       def create
-        facebook_authorization(params[:facebook_id], params[:access_token]) if params.has_key?(:facebook_id) #TODO
+        facebook_authorization(params[:facebook_id], params[:fb_access_token]) if params.has_key?(:facebook_id) #TODO
+
         build_resource(sign_up_params)
         resource_saved = resource.save
         if resource_saved
@@ -54,7 +55,6 @@ module Api
         res_db_id = JSON.parse(res.body)['id']
         error!('401 Unauthorized', 401) if res_db_id != facebook_id
       end
-
 
     end
   end

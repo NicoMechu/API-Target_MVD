@@ -15,13 +15,6 @@ ActiveRecord::Schema.define(version: 20160808145759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "cube"
-  enable_extension "earthdistance"
-
-  create_table "Prueba", primary_key: "Id", force: :cascade do |t|
-    t.float "lat"
-    t.float "lng"
-  end
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"

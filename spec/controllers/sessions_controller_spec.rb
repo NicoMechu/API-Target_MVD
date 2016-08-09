@@ -3,7 +3,12 @@
 require 'spec_helper'
 
 describe Api::V1::SessionsController do
+
+
   before :each do
+
+    allow(controller).to receive(:facebook_authorization)
+
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
@@ -11,8 +16,8 @@ describe Api::V1::SessionsController do
     before :each do
       @user = FactoryGirl.create(:user, password: 'mypass123')
       @params = {
-        email:        @user.email,
-        password:     'mypass123'
+        email:            @user.email,
+        password:         'mypass123',
       }
     end
 
@@ -46,13 +51,15 @@ describe Api::V1::SessionsController do
       @user = FactoryGirl.create(:user)
       @fb_user = FactoryGirl.create(:user_with_fb)
       @params = {
-          facebook_id:    '1234567890',
-          first_name:     'test',
-          last_name:      'dude',
+          facebook_id:      '1234567890',
+          first_name:       'test',
+          last_name:        'dude',
+          fb_access_token:  'vbuif123n8cn'
       }
     end
 
     context 'with valid params' do
+
       context 'when the user does not exists' do
         it 'should create a new facebook user' do
           expect { post :create, { type: 'facebook', user:  @params } , format: 'json' }.to change { User.count }.by(1)

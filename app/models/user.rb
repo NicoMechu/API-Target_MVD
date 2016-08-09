@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
   has_many :targets
   validates :username, uniqueness: true, allow_blank: true, allow_nil: true
-  validates_presence_of :username, :email, :first_name, :password, :birth_year
+  validates_presence_of :password, :username unless :facebook_id.present?
 
   def to_s
     return username unless first_name.present?
