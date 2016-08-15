@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 require 'spec_helper'
 
 describe Api::V1::RegistrationsController do
@@ -12,7 +11,7 @@ describe Api::V1::RegistrationsController do
 
   describe "POST 'users/'" do
     it 'allows to create an user' do
-      @attr = { username: 'test', email: 'test@test.com', password: '12345678', password_confirmation: '12345678' }
+      @attr = { username: 'test', email: 'test@test.com', password: '12345678', password_confirmation: '12345678', name:'Test', gender: :male}
       post :create, user: @attr, format: 'json'
       parsed_response = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -21,7 +20,7 @@ describe Api::V1::RegistrationsController do
     end
 
     it 'should not create an user with invalid email' do
-      @attr = { username: 'test', email: 'notanemail', password: '12345678', password_confirmation: '12345678' }
+      @attr = { username: 'test', email: 'notanemail', password: '12345678', password_confirmation: '12345678', first_name:'Test', birth_year:1999 }
       post :create, user: @attr, format: 'json'
       new_user = User.find_by_email('test@test.com')
       expect(new_user).to be_nil
@@ -29,7 +28,7 @@ describe Api::V1::RegistrationsController do
     end
 
     it 'should not create an user with invalid password' do
-      @attr = { username: 'test', email: 'email@email.com', password: 'short', password_confirmation: 'short' }
+      @attr = { username: 'test', email: 'email@email.com', password: 'short', password_confirmation: 'short', first_name:'Test', birth_year:1999 }
       post :create, user: @attr, format: 'json'
       new_user = User.find_by_email('test@test.com')
       expect(new_user).to be_nil
@@ -37,7 +36,7 @@ describe Api::V1::RegistrationsController do
     end
 
     it 'should not create an user if passwords dont match' do
-      @attr = { username: 'test', email: 'email@email.com', password: 'shouldmatch', password_confirmation: 'dontmatch' }
+      @attr = { username: 'test', email: 'email@email.com', password: 'shouldmatch', password_confirmation: 'dontmatch', first_name:'Test', birth_year:1999 }
       post :create, user: @attr, format: 'json'
       new_user = User.find_by_email('test@test.com')
       expect(new_user).to be_nil

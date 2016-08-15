@@ -10,9 +10,9 @@ module Facebookeable
       if user.blank?
         user = User.create(
           facebook_id: fb_id,
-          first_name: fb_data[:first_name],
-          last_name: fb_data[:last_name],
-          email: fb_data[:email]
+          name:   fb_data[:name],
+          email:  fb_data[:email],
+          gender: fb_data[:gender]
         )
       end
       user

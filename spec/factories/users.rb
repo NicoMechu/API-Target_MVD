@@ -14,13 +14,11 @@
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  authentication_token   :string           default("")
-#  first_name             :string           default("")
-#  last_name              :string           default("")
-#  username               :string           default("")
 #  facebook_id            :string           default("")
 #  created_at             :datetime
 #  updated_at             :datetime
-#  birth_year             :integer
+#  gender                 :integer
+#  name                   :string
 #
 # Indexes
 #
@@ -28,21 +26,21 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_facebook_id           (facebook_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_username              (username)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
   factory :user, class: 'User' do
-    email     { Faker::Internet.email }
-    password  { Faker::Internet.password(8) }
-    sequence(:username) { |n| "#{n}#{Faker::Internet.user_name}" }
+    name                { Faker::Name.name   }
+    email               { Faker::Internet.email }
+    password            { Faker::Internet.password(8) }
+    gender              { Faker::Number.between(0, 1) }
   end
 
   factory :user_with_fb, class: 'User' do
-    facebook_id { Faker::Number.number(10).to_s }
-    first_name  { Faker::Name.first_name }
-    last_name   { Faker::Name.last_name }
+    facebook_id       { Faker::Number.number(10).to_s }
+    name              { Faker::Name.name }
+    gender            { Faker::Number.between(0, 1) }
   end
 end
