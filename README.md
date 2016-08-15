@@ -31,13 +31,11 @@ _(change elements un < > acording to your needs.)_
 ```
 { "user":
     { 
-    "email":"<email: String>",                      #Can't be omitted 
-    "password":"<password: String>",                #Can't be omitted
-    "password_confirmation":"<password: String>",   #Can't be omitted
-    "username":"<username: String>",                #Can't be omitted
-    "first_name":"<first_name: String>",            #Can't be omitted
-    "last_name":"<last_name: String>",
-    "birth_year":<Year_of_birth: Integer>
+    "email":"<email: String>",
+    "password":"<password: String>",
+    "password_confirmation":"<password: String>",
+    "name":"<name: String>",
+    "gender":"<gender: Enum(0:'female', 1:'male') >",
     }
 }
 ```

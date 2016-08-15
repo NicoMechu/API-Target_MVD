@@ -14,13 +14,11 @@
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  authentication_token   :string           default("")
-#  first_name             :string           default("")
-#  last_name              :string           default("")
-#  username               :string           default("")
 #  facebook_id            :string           default("")
 #  created_at             :datetime
 #  updated_at             :datetime
-#  birth_year             :integer
+#  gender                 :integer
+#  name                   :string
 #
 # Indexes
 #
@@ -28,7 +26,6 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_facebook_id           (facebook_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_username              (username)
 #
 
 class User < ActiveRecord::Base
@@ -36,16 +33,17 @@ class User < ActiveRecord::Base
   include Facebookeable
 
   has_many :targets
-  validates :username, uniqueness: true, allow_blank: true, allow_nil: true
-  validates_presence_of :password, :username unless :facebook_id.present?
+
+  validates :name, presence: true, allow_blank: false, allow_nil: false
+  validates :email, uniqueness: true, allow_blank: true, allow_nil: true unless :facebook_id.present?
+  validates_presence_of :password unless :facebook_id.present?
+  validates :facebook_id, uniqueness: true,allow_blank: true, allow_nil: true
+
+  enum gender: [:female , :male]
+  validates_presence_of :gender
 
   def to_s
-    return username unless first_name.present?
-    "#{first_name} #{last_name}"
-  end
-
-  def full_name
-    return username unless first_name.present?
-    "#{first_name} #{last_name}"
+    return name
   end
 end
+

@@ -8,8 +8,16 @@ module Api
       # POST /resource/sign_in
       def create
         if params[:type] == 'facebook' #TODO Verify correctness
-          facebook_authorization( params[:user][:facebook_id] , params[:user][:fb_access_token]) 
-          resource = User.find_or_create_by_fb(params[:user])   
+          user = obtain_facebook_user(params[:fb_access_token])
+          render json: { error: 'Not Authorized' }, status: :forbidden and return if user.nil?
+          return unless user
+          user_params = {
+           facebook_id: user['id'],
+           gender:      user['gender'],
+           email:       user['email'],
+           name:        "#{user['first_name']} #{user['last_name']}"
+          }
+          resource = User.find_or_create_by_fb user_params
         else
           resource = warden.authenticate! scope: resource_name, recall: "#{controller_path}#failure"
         end
@@ -34,28 +42,19 @@ module Api
         render json: { errors: ['Login failed.'] }, status: :bad_request
       end
 
-      private
-
-      def user_params
-        params.require(:user).permit(
-          :username, :first_name,
-          :last_name, :birth_year, :facebook_id, :email,
-          :welcome_screen, :how_to_trade,
-          :notifications
-        )
-      end
-
       protected
 
       def json_request?
         request.format.json?
       end
 
-      def facebook_authorization(facebook_id, access_token)
-          res = Faraday.get 'https://graph.facebook.com/me' , { :access_token => access_token}
-          error!('401 Unauthorized', 401) if res.status != 200
-          res_fb_id = JSON.parse(res.body)['id']
-          error!('401 Unauthorized', 401) if res_fb_id != facebook_id
+      def obtain_facebook_user(fb_access_token)
+        begin
+          graph = Koala::Facebook::API.new(fb_access_token)
+          graph.get_object("me?fields=first_name,last_name,email,gender")
+        rescue Koala::Facebook::AuthenticationError => ex
+          return nil
+        end
       end
     end
   end

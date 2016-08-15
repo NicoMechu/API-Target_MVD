@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 require 'spec_helper'
 
 describe Api::V1::RegistrationsController do
@@ -12,7 +11,7 @@ describe Api::V1::RegistrationsController do
 
   describe "POST 'users/'" do
     it 'allows to create an user' do
-      @attr = { username: 'test', email: 'test@test.com', password: '12345678', password_confirmation: '12345678', first_name:'Test', birth_year:1999}
+      @attr = { username: 'test', email: 'test@test.com', password: '12345678', password_confirmation: '12345678', name:'Test', gender: :male}
       post :create, user: @attr, format: 'json'
       parsed_response = JSON.parse(response.body)
       expect(response.status).to eq 200

@@ -6,10 +6,7 @@ module Api
       before_action :configure_permitted_parameters, only: [:create]
       skip_before_filter :verify_authenticity_token, if: :json_request?
 
-
       def create
-        facebook_authorization(params[:facebook_id], params[:fb_access_token]) if params.has_key?(:facebook_id) #TODO
-
         build_resource(sign_up_params)
         resource_saved = resource.save
         if resource_saved
@@ -40,7 +37,7 @@ module Api
       def configure_permitted_parameters
         devise_parameter_sanitizer.for :sign_up do |params|
           params.permit(
-            :username, :first_name, :last_name, :birth_year , :email, :password, :password_confirmation
+            :name, :gender , :email , :password, :password_confirmation
           )
         end
       end
@@ -48,14 +45,6 @@ module Api
       def json_request?
         request.format.json?
       end
-
-      def facebook_authorization(facebook_id, access_token)
-        res = Faraday.get 'https://graph.facebook.com/me' , { :access_token => access_token }
-        error!('401 Unauthorized', 401) if res.status != 200
-        res_db_id = JSON.parse(res.body)['id']
-        error!('401 Unauthorized', 401) if res_db_id != facebook_id
-      end
-
     end
   end
 end
