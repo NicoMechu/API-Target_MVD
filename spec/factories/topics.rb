@@ -10,7 +10,7 @@
 
 FactoryGirl.define do
   factory :topic do
-    label "MyString"
+    label   { Faker::App.name }
   end
 
 end

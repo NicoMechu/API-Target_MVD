@@ -7,18 +7,18 @@
 #  topic_id   :integer
 #  lat        :float
 #  lng        :float
-#  radio      :integer
+#  radius     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryGirl.define do
   factory :target do
-    user_id 1
-topic_id 1
-lat 1.5
-lng 1.5
-radio 1
+    user
+    topic
+    lat     { Faker::Number.decimal(2, 6) }
+    lng     { Faker::Number.decimal(2, 6) } 
+    radius  { Faker::Number.number(7) } 
   end
 
 end

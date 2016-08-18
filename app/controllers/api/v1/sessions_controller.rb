@@ -4,6 +4,7 @@ module Api
   module V1
     class SessionsController < Devise::SessionsController
       skip_before_filter :verify_authenticity_token, if: :json_request?
+      skip_before_filter :verify_signed_out_user
 
       # POST /resource/sign_in
       def create
@@ -28,13 +29,14 @@ module Api
         scope = Devise::Mapping.find_scope! resource_or_scope
         resource ||= resource_or_scope
         sign_in(scope, resource) unless warden.user(scope) == resource
-        render json: { token: resource.authentication_token, email: resource.email }
+        render json: { token: resource.authentication_token, email: resource.email, user_id:resource.id}
       end
 
       # DELETE /resource/sign_out
       def destroy
         # expire auth token
-        current_user.invalidate_token
+        current_user.try :invalidate_token
+        reset_session
         head :no_content
       end
 

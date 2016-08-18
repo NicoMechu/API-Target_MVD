@@ -7,11 +7,13 @@ module Api
       skip_before_filter :verify_authenticity_token, if: :json_request?
 
       def create
-        build_resource(sign_up_params)
+        user_params = sign_up_params
+        user_params[:gender] = user_params[:gender].to_i if user_params[:gender].is_a? String
+        build_resource(user_params)
         resource_saved = resource.save
         if resource_saved
           save_success
-          render json: { token: resource.authentication_token, email: resource.email }
+          render json: { token: resource.authentication_token, email: resource.email, name:resource.name, gender:resource.gender, user_id:resource.id  }
         else
           save_fail
           render json: { error: resource.errors }, status: :bad_request

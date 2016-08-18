@@ -10,4 +10,9 @@
 
 class Topic < ActiveRecord::Base
   validates_presence_of :label
+
+  def to_s
+    label
+  end
+
 end
