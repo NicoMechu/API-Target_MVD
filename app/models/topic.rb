@@ -9,6 +9,8 @@
 #
 
 class Topic < ActiveRecord::Base
+  has_many :targets, dependent: :destroy
+  
   validates_presence_of :label
 
   def to_s

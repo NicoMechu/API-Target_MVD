@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   include Authenticable
   include Facebookeable
 
-  has_many :targets
+  has_many :targets , dependent: :destroy
 
   validates :name, presence: true, allow_blank: false, allow_nil: false
   validates :email, uniqueness: true, allow_blank: true, allow_nil: true unless :facebook_id.present?

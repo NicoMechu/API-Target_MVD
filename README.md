@@ -35,7 +35,7 @@ _(change elements un < > acording to your needs.)_
     "password":"<password: String>",
     "password_confirmation":"<password: String>",
     "name":"<name: String>",
-    "gender":"<gender: Enum(0:'female', 1:'male') >",
+    "gender":"<gender: String - Enum('male','female') >",
     }
 }
 ```
@@ -192,7 +192,7 @@ This request will return a list of the targets with the following format:
 ```
 
 #### Update an existing Target
-In order to update an existing target from a user sending a **PUT** request to the following _url_:
+In order to update an existing target from a user is need to send a **PUT** request to the following _url_:
 ```
 <localhost:3000>/api/v1/users/<user_id>/targets/<target_id>
 ```
@@ -247,6 +247,31 @@ It will returns the updated target with the following format:
   ]
 }
 ```
+
+#### Delete an existing Target
+In order to delete an existing target from a user is need to send a **DELETE** request to the following _url_:
+```
+<localhost:3000>/api/v1/users/<user_id>/targets/<target_id>
+```
+
+Example:
+```
+curl -X DELETE -H "Content-Type: application/json" -H "X-USER-TOKEN: MMGssP5gJMgrAskkioPM" -H "Cache-Control: no-cache" -H "Postman-Token: 8452ab3e-1855-665e-fabf-32662bb68517" -d '' "<localhost:3000>/api/v1/users/1/targets/27/"
+```
+
+It will returns the updated target with the following format:
+```
+{
+  "target": {
+    "id": <target_id>,
+    "latitud": <latitud>,
+    "longitud": <longitud>,
+    "radius": <radius>,
+    "topic": "<topic label>"
+  }
+}
+```
+
 
 ---
 

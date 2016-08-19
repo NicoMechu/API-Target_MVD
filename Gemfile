@@ -26,6 +26,8 @@ gem 'rails_12factor', '~> 0.0.3', group: :production
 gem 'rack-cors', '~> 0.4.0', require: 'rack/cors'
 gem 'simple_token_authentication', '~> 1.6.0'
 
+# To use soft delete
+gem "paranoia", "~> 2.0"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

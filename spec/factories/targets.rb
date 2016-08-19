@@ -10,6 +10,11 @@
 #  radius     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  deleted_at :datetime
+#
+# Indexes
+#
+#  index_targets_on_deleted_at  (deleted_at)
 #
 
 FactoryGirl.define do

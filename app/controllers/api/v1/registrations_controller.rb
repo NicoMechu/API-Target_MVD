@@ -7,9 +7,7 @@ module Api
       skip_before_filter :verify_authenticity_token, if: :json_request?
 
       def create
-        user_params = sign_up_params
-        user_params[:gender] = user_params[:gender].to_i if user_params[:gender].is_a? String
-        build_resource(user_params)
+        build_resource(sign_up_params)
         resource_saved = resource.save
         if resource_saved
           save_success
