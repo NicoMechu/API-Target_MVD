@@ -33,14 +33,14 @@ class User < ActiveRecord::Base
   include Facebookeable
 
   has_many :targets , dependent: :destroy
+  enum gender: [:female , :male]
 
   validates :name, presence: true, allow_blank: false, allow_nil: false
   validates :email, uniqueness: true, allow_blank: true, allow_nil: true unless :facebook_id.present?
-  validates_presence_of :password unless :facebook_id.present?
+  validates :password, presence: true unless :facebook_id.present?
   validates :facebook_id, uniqueness: true,allow_blank: true, allow_nil: true
+  validates :gender, presence: true
 
-  enum gender: [:female , :male]
-  validates_presence_of :gender
 
   def to_s
     return name

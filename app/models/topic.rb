@@ -11,7 +11,7 @@
 class Topic < ActiveRecord::Base
   has_many :targets, dependent: :destroy
   
-  validates_presence_of :label
+  validates :label, presence: true
 
   def to_s
     label

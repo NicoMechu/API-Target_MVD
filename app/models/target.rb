@@ -21,8 +21,8 @@ class Target < ActiveRecord::Base
   acts_as_paranoid
   belongs_to :user
   belongs_to :topic
-
-  validates_presence_of :lat, :lng, :radius
+  
+  validates :lat, :lng, :radius, presence: true
   validate :not_exceeded_limit?
 
   scope :shared_topic, -> (target) { where(:topic => target.topic).where.not(user_id: target.user_id) }

@@ -18,7 +18,7 @@ module Api
 
         if @target.save 
           @near = get_near(@target)
-          render :newTarget
+          render :new_target
         elsif @target.errors[:limit].any?
           render json: { errors: ['You have exceeded the amount of Targets, please remove one before create a new one.'] }, status: :bad_request 
         else
@@ -36,9 +36,7 @@ module Api
         if @target.nil?
           render json: { errors: ['There is no target with this ID'] }, status: :bad_request and return 
         end
-        if @target.destroy
-          render :destroy
-        else
+        unless @target.destroy
           render json: { errors: ['Could not delet Target'] }, status: :bad_request
         end
       end 
@@ -55,9 +53,9 @@ module Api
 
         if @target.save 
           @near = get_near(@target)
-          render :newTarget
+          render :new_target
         else
-          render json: { errors: ['Could not ipdate Target'] }, status: :bad_request
+          render json: { errors: ['Could not update Target'] }, status: :bad_request
         end
       end
 

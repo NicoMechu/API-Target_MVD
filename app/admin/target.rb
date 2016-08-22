@@ -8,9 +8,6 @@ ActiveAdmin.register Target do
     column :lng
     column :radius
     column :topic
-    # column :topic do |target|
-    #   link_to(target.topic, admin_topic_path(target.topic))
-    # end
     actions
   end
 
