@@ -11,10 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812161640) do
+ActiveRecord::Schema.define(version: 20160819132517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "cube"
+  enable_extension "earthdistance"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -70,10 +72,13 @@ ActiveRecord::Schema.define(version: 20160812161640) do
     t.integer  "topic_id"
     t.float    "lat"
     t.float    "lng"
-    t.integer  "radio"
+    t.integer  "radius"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
+
+  add_index "targets", ["deleted_at"], name: "index_targets_on_deleted_at", using: :btree
 
   create_table "topics", force: :cascade do |t|
     t.string   "label"
