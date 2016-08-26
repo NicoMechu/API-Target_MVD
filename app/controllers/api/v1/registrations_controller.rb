@@ -11,10 +11,14 @@ module Api
         resource_saved = resource.save
         if resource_saved
           save_success
-          render json: { token: resource.authentication_token, email: resource.email, name:resource.name, gender:resource.gender, user_id:resource.id  }
+          render json: { token: resource.authentication_token,
+            email: resource.email, 
+            name:resource.name, 
+            gender:resource.gender, 
+            user_id:resource.id  }
         else
           save_fail
-          render json: { error: resource.errors }, status: :bad_request
+          render json: { errors: resource.errors }, status: :bad_request
         end
       end
 

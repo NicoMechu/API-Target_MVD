@@ -9,7 +9,7 @@ module Api
       def create
         if params[:type] == 'facebook' #TODO Verify correctness
           user = obtain_facebook_user(params[:fb_access_token])
-          render json: { error: 'Not Authorized' }, status: :forbidden and return if user.nil?
+          render json: { errors: 'Not Authorized' }, status: :forbidden and return if user.nil?
           return unless user
           user_params = {
            facebook_id: user['id'],

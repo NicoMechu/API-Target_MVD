@@ -26,7 +26,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
           lat:        -34.91989494,
           lng:        -56.16974831,
           radius:     1000,
-          topic:      @topic.id
+          topic_id:      @topic.id
         }
     end
 
@@ -42,8 +42,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
         expect(parsed_response['target']['longitude']).to         eq -56.16974831
         expect(parsed_response['target']['radius']).to            eq 1000
         expect(parsed_response['target']['topic']).to             eq @topic.label
-        expect(parsed_response['compatible'].count).to            eq 1
-        expect(parsed_response['compatible'][0]['target_id']).to  eq @near_target.id
+        expect(parsed_response['matches'].count).to               eq 1
       end
     end
 
@@ -71,7 +70,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
 
         it 'should send error status' do
           post :create, user_id: @user.id, target: @params_invalid , format: 'json'
-          expect(response.status).to eq 404
+          expect(response.status).to eq 400
         end
       end
 
@@ -86,7 +85,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
 
         it 'should send error status' do
           post :create, user_id: @user.id, target: @params , format: 'json'
-          expect(response.status).to eq 404
+          expect(response.status).to eq 400
         end
       end
     end
@@ -108,7 +107,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
         lat:        -34.91831144,
         lng:        -56.16657257,
         radius:     1000,
-        topic:      @topic.id
+        topic_id:      @topic.id
       }
     end
 
@@ -128,8 +127,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
         expect(parsed_response['target']['longitude']).to         eq -56.16657257
         expect(parsed_response['target']['radius']).to            eq 1000
         expect(parsed_response['target']['topic']).to             eq @topic.label
-        expect(parsed_response['compatible'].count).to            eq 1
-        expect(parsed_response['compatible'][0]['target_id']).to  eq @near_target.id
+        expect(parsed_response['matches'].count).to               eq 1
       end
     end
 

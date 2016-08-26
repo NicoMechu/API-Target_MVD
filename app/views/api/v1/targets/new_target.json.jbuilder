@@ -6,4 +6,4 @@ json.target do
   json.topic      @target.topic.label
 end
 
-json.compatible @near, partial: 'api/v1/targets/near_targets', as: :target 
+json.matches @matches, partial: 'api/v1/match_conversations/match', as: :match 

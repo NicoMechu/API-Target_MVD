@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160819132517) do
+ActiveRecord::Schema.define(version: 20160824140057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,29 @@ ActiveRecord::Schema.define(version: 20160819132517) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "match_conversations", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.integer  "user_A_id"
+    t.integer  "user_B_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "text"
+    t.integer  "user_id"
+    t.integer  "match_conversation_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "push_tokens", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "push_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "targets", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "topic_id"
@@ -76,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160819132517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string   "title"
   end
 
   add_index "targets", ["deleted_at"], name: "index_targets_on_deleted_at", using: :btree

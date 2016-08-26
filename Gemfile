@@ -29,6 +29,10 @@ gem 'simple_token_authentication', '~> 1.6.0'
 # To use soft delete
 gem "paranoia", "~> 2.0"
 
+gem 'dotenv-rails'
+
+gem 'pushwoosh'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
