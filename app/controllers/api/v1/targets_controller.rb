@@ -10,24 +10,17 @@ module Api
         if target_params.nil?
           render json: { errors: ['The arguments given are incorrect.'] }, status: :bad_request and return 
         end
-        @target = Target.new(user:current_user,
-          lat: target_params[:lat], 
-          lng: target_params[:lng], 
-          radius: target_params[:radius], 
-          topic: Topic.find(target_params[:topic]))
+        @target = Target.new(target_params)
+        @target.user = current_user
 
         if @target.save 
-          @near = get_near(@target)
+          @matches = @target.matches
           render :new_target
         elsif @target.errors[:limit].any?
           render json: { errors: ['You have exceeded the amount of Targets, please remove one before create a new one.'] }, status: :bad_request 
         else
           render json: { errors: ['Could not creat Target'] }, status: :bad_request
         end
-      end
-
-      def target_params
-        target_params = params.require(:target).permit(:lat, :lng, :radius, :topic, :id)
       end
 
       def destroy
@@ -46,30 +39,18 @@ module Api
         if @target.nil?
           render json: { errors: ['There is no target with this ID'] }, status: :bad_request and return 
         end
-        @target.lat = target_params[:lat] if target_params.has_key?(:lat)
-        @target.lng = target_params[:lng] if target_params.has_key?(:lng)
-        @target.radius = target_params[:radius] if target_params.has_key?(:radius)
-        @target.topic_id = target_params[:topic] if target_params.has_key?(:topic)
+        @target.update_attributes(target_params)
 
         if @target.save 
-          @near = get_near(@target)
+          @matches = @target.matches
           render :new_target
         else
           render json: { errors: ['Could not update Target'] }, status: :bad_request
         end
       end
 
-      def get_near(target)
-        # Query to find targets present in a square circumscribed around a circle whis radius is equal to the addition
-        # of the raidius of both targets.
-        box_query     = "earth_box(ll_to_earth(#{target.lat},#{target.lng}),"\
-                        "(#{target.radius} + radius)) @> ll_to_earth(lat, lng)"
-        # Query to find alltargets present in a radius equal to the addition of the raidius of both targets.
-        # This query is more ineficient thant the otherone, the box query allows targets which doesn't corresponds. 
-        #So, the box query creates a primary filter and the radius query refines it.
-        radius_query  = "earth_distance(ll_to_earth(#{target.lat},#{target.lng}),"\
-                        " ll_to_earth(lat, lng)) <= (#{target.radius} + radius)"
-        Target.shared_topic(target).where(box_query).where(radius_query)
+      def target_params
+        target_params = params.require(:target).permit(:lat, :lng, :radius, :topic_id, :id, :title)
       end
     end
   end

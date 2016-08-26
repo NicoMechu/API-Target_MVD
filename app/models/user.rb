@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
   include Facebookeable
 
   has_many :targets , dependent: :destroy
+  has_many :matches, :class_name => 'MatchConversation', :foreign_key => 'user_A_id', dependent: :destroy
+  has_many :inverse_matches, :class_name => 'MatchConversation', :foreign_key => 'user_B_id', dependent: :destroy
+  has_many :push_tokens, dependent: :destroy
+
   enum gender: [:female , :male]
 
   validates :name, presence: true, allow_blank: false, allow_nil: false
@@ -44,6 +48,10 @@ class User < ActiveRecord::Base
 
   def to_s
     return name
+  end
+
+  def all_matches
+    (matches + inverse_matches).sort_by(&:created_at)
   end
 end
 

@@ -11,6 +11,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  deleted_at :datetime
+#  title      :string
 #
 # Indexes
 #
@@ -31,5 +32,26 @@ class Target < ActiveRecord::Base
     if !self.user.nil?  &&  self.user.targets(:reload).count >= 10
       errors.add(:limit, "Targets limit exceeded")
     end
+  end
+
+  def matches
+    # Query to find targets present in a square circumscribed around a circle whis radius is equal to the addition
+    # of the raidius of both targets.
+    box_query     = "earth_box(ll_to_earth(#{lat},#{lng}),"\
+                    "(#{radius} + radius)) @> ll_to_earth(lat, lng)"
+    # Query to find alltargets present in a radius equal to the addition of the raidius of both targets.
+    # This query is more ineficient thant the otherone, the box query allows targets which doesn't corresponds. 
+    # So, the box query creates a primary filter and the radius query refines it.
+    radius_query  = "earth_distance(ll_to_earth(#{lat},#{lng}),"\
+                    " ll_to_earth(lat, lng)) <= (#{radius} + radius)"
+
+    matching_targets = Target.shared_topic(self).where(box_query).where(radius_query)
+    
+    matches = []
+    matching_targets.each do |matching_target|
+      match = MatchConversation.new(user_A: user, user_B: matching_target.user, topic: topic)
+      match.save && matches << match
+    end
+    matches
   end
 end
