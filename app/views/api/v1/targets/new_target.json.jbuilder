@@ -3,6 +3,8 @@ json.target do
   json.latitude   @target.lat
   json.longitude  @target.lng
   json.radius     @target.radius
+  json.title      @target.title
+  json.topic_id   @target.topic.id
   json.topic      @target.topic.label
 end
 
