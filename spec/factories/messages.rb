@@ -16,5 +16,4 @@ FactoryGirl.define do
     match_conversation
     text                { Faker::Lorem.sentence }
   end
-
 end

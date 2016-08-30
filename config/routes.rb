@@ -18,10 +18,11 @@ Railsroot::Application.routes.draw do
         resources :targets
         resources :push_tokens, only: [:create]
         resources :match_conversations, only: [:index, :show] do
-          resources :messages, only: [:create]
+          resources :messages, only: [:create, :index]
         end
       end
       resources :topics, only: [:index]
     end
   end
+  resources :home, only: [:index]
 end

@@ -49,6 +49,7 @@ module Api
         end
       end
 
+      private
       def target_params
         target_params = params.require(:target).permit(:lat, :lng, :radius, :topic_id, :id, :title)
       end

@@ -17,6 +17,7 @@ gem 'devise-async', '~> 0.10.1'
 
 # Use delayed jobs
 gem 'delayed_job_active_record', '~> 4.0.3'
+gem 'daemons'
 
 gem 'haml', '~> 4.0.6'
 gem 'jbuilder', '~> 1.2'
@@ -29,9 +30,20 @@ gem 'simple_token_authentication', '~> 1.6.0'
 # To use soft delete
 gem "paranoia", "~> 2.0"
 
+# Pagination
+gem 'kaminari'
+
+# Enviroment
 gem 'dotenv-rails'
 
+# Notifications
 gem 'pushwoosh'
+
+# Messages
+gem 'pusher'
+
+# SendGrid
+gem 'sendgrid'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

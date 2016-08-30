@@ -18,7 +18,7 @@ Railsroot::Application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :smtp
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -32,4 +32,15 @@ Railsroot::Application.configure do
   config.assets.debug = true
   config.action_mailer.default_url_options = { host: ENV['SERVER_URL'] }
   config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: ENV['DOMAIN'],
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    user_name: ENV['USER_NAME'],
+    password: ENV['PASSWORD']
+  }
 end

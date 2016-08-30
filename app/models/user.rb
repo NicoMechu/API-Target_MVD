@@ -8,7 +8,7 @@
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
-#  sign_in_count          :integer          default("0"), not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
@@ -19,6 +19,7 @@
 #  updated_at             :datetime
 #  gender                 :integer
 #  name                   :string
+#  channel_id             :string
 #
 # Indexes
 #
@@ -44,14 +45,24 @@ class User < ActiveRecord::Base
   validates :password, presence: true unless :facebook_id.present?
   validates :facebook_id, uniqueness: true,allow_blank: true, allow_nil: true
   validates :gender, presence: true
+  validates :channel_id, uniqueness: true
 
+  before_validation :set_channel_id, on: [:create, :update]
 
   def to_s
     return name
   end
 
   def all_matches
-    (matches + inverse_matches).sort_by(&:created_at)
+    matches.merge(inverse_matches).order(created_at: :desc)
   end
+
+  def set_channel_id #TODO
+    self.channel_id = loop do
+      temp = SecureRandom.urlsafe_base64(16)
+      break temp unless User.find_by(channel_id: temp).present?
+    end
+  end
+
 end
 
