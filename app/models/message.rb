@@ -15,4 +15,13 @@ class Message < ActiveRecord::Base
   belongs_to :match_conversation
 
   validates :text, presence: true
+
+  after_create :send_message
+
+  scope :recent, -> { order('created_at DESC') }
+
+  protected
+    def send_message
+      NotificationService.send_message(self)
+    end
 end

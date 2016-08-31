@@ -36,6 +36,8 @@ module Railsroot
 
     config.secret_key_base = ENV['SECRET_KEY_BASE']
     
+    config.active_job.queue_adapter = :delayed_job
+    
     ActionMailer::Base.smtp_settings = {
       address: 'smtp.sendgrid.net',
       port: 25,

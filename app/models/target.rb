@@ -24,7 +24,7 @@ class Target < ActiveRecord::Base
   belongs_to :topic
   
   validates :lat, :lng, :radius, presence: true
-  validate :not_exceeded_limit?
+  validate :not_exceeded_limit?, on: :create
 
   scope :shared_topic, -> (target) { where(:topic => target.topic).where.not(user_id: target.user_id) }
 

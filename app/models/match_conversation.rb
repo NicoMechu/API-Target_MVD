@@ -18,7 +18,7 @@ class MatchConversation < ActiveRecord::Base
 
   validate   :match_uniqueness
 
-  after_save :notify_match
+  after_save :notify
 
   def match_uniqueness
     matches_topic = MatchConversation.where(topic_id: topic_id)
@@ -27,8 +27,13 @@ class MatchConversation < ActiveRecord::Base
     end
   end
 
+  def other_party
+    return current_user.id == user_B.id ? user_A : user_B
+  end
+  
   private
-    def notify_match
-      NotificationService.send_message( self.user_B, 'congratulations you have a new match! :D', self.to_json )
+    def notify
+      NotificationService.notify_match(self)
     end
+
 end

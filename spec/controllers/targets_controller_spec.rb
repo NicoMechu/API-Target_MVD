@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe  Api::V1::TargetsController, type: :controller do
+  Delayed::Worker.delay_jobs = false
   render_views
   
   before :each do
