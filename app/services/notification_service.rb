@@ -7,8 +7,9 @@ class NotificationService
       # content: { :fr  => "Test", :en  => "Test" },
       data:  match.to_json
     }
-    Pushwoosh.notify_devices('congratulations you have a new match! :D', match.user_B.push_tokens, options)
+    Pushwoosh.notify_devices('Congratulations you have a new match! :D', match.user_B.push_tokens, options)
   end
+  # TODO: use asynchronic jobs for this method
   # handle_asynchronously :notify_match, :priority => 2
 
   
@@ -23,6 +24,7 @@ class NotificationService
     })
     Pushwoosh.notify_devices("New message from #{recipient.name}", recipient.push_tokens)
   end
+  # TODO: use asynchronic jobs for this method
   # handle_asynchronously :send_message, :priority => 1 # The priority for sending message is higer than
                                                       # match notification because the fluentcy of the 
                                                       # app depends on that.

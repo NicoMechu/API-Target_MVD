@@ -4,7 +4,7 @@ module Api
       def create
         @match = current_user.all_matches.find_by_id(params[:match_conversation_id]) 
         unless @match
-          render json: { errors:  'There are any Matches with this ID'}, status: :bad_request and return 
+          render json: { errors:  "There aren't any Matches with this ID"}, status: :bad_request and return 
         end
         @message = Message.new(user: current_user, match_conversation: @match, text: message_params[:text])
         unless @message.save
@@ -13,7 +13,6 @@ module Api
       end
 
       def index
-        byebug
         @messages = curren_user.all_matches.find_by_id(params[:match_conversation_id]).
                     messages.recent.page( params[:page] || 1 )
       end

@@ -9,9 +9,9 @@ module Api
         self.resource = resource_class.send_reset_password_instructions(resource_params)
         yield resource if block_given?
         if successfully_sent?(resource)
-          render json: { message: 'Success! You will recieive an email an email in a moment' }
+          render json: { message: 'Success! You will recieive an email an email in a moment.' }
         else
-          render json: { errors: 'Your email address is not registered'}, status: :bad_request
+          render json: { errors: 'Your email address is not registered.'}, status: :bad_request
         end
       end
 
@@ -22,7 +22,7 @@ module Api
         errors = resource.errors
         if errors.empty?
           resource.unlock_access! if unlockable?(resource)
-          render json: { message: '' }
+          render json: { message: 'Password updated successfully.' }
         else
           render json: { errors: errors }, status: :bad_request
         end
