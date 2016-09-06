@@ -6,11 +6,17 @@ module Api
       end
 
       def show
-        @match = current_user.all_matches.find_by_id(params[:match_conversation_id])
+        @match = current_user.all_matches.find_by_id(params[:id])
+        unless @match
+          render json: { error: "There isn't any matches with this ID."}, status: :bad_request and return 
+        end
       end
 
       def close
         @match = current_user.all_matches.find_by_id(params[:match_conversation_id])
+        unless @match
+          render json: { error: "There isn't any match with this ID"}, status: :bad_request and return 
+        end
         @match.close_chat(current_user)
         unless @match.save
           render json: { errors: @match.errors }, status: :bad_request and return 
