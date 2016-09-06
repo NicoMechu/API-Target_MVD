@@ -13,8 +13,12 @@ module Api
       end
 
       def index
-        @messages = curren_user.all_matches.find_by_id(params[:match_conversation_id]).
-                    messages.recent.page( params[:page] || 1 )
+        @match = current_user.all_matches.find_by_id(params[:match_conversation_id])
+        unless @match
+          render json: { errors: "There isn't any match with that ID." }, 
+            status: :bad_request and return 
+        end
+        @messages = @match.messages.recent.page( params[:page] || 1 )
       end
 
       private

@@ -19,7 +19,7 @@
 #  updated_at             :datetime
 #  gender                 :integer
 #  name                   :string
-#  channel_id             :string
+#  image                  :string
 #
 # Indexes
 #

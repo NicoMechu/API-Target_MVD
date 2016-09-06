@@ -23,7 +23,7 @@ describe Api::V1::PasswordsController do
               email: @user.email
             },
             format: 'json'
-      expect(response.response_code).to be 204
+      expect(response.response_code).to be 200
       expect(ActionMailer::Base.deliveries.count).to eq 1
     end
 
@@ -36,7 +36,7 @@ describe Api::V1::PasswordsController do
             reset_password_token: @password_token
           },
           format: 'json'
-      expect(response.response_code).to be 204
+      expect(response.response_code).to be 200
     end
   end
 

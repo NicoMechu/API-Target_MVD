@@ -9,10 +9,11 @@ module Facebookeable
       user = User.find_by(facebook_id: fb_id)
       if user.blank?
         user = User.create(
-          facebook_id: fb_id,
-          name:   fb_data[:name],
-          email:  fb_data[:email],
-          gender: fb_data[:gender]
+          facebook_id:  fb_id,
+          name:         fb_data[:name],
+          email:        fb_data[:email],
+          gender:       fb_data[:gender],
+          image:        fb_data[:image] 
         )
       end
       user

@@ -31,19 +31,25 @@ gem 'simple_token_authentication', '~> 1.6.0'
 gem "paranoia", "~> 2.0"
 
 # Pagination
-gem 'kaminari'
+gem 'kaminari', '~> 0.16'
 
 # Enviroment
-gem 'dotenv-rails'
+gem 'dotenv-rails', '~> 2.1'
 
 # Notifications
-gem 'pushwoosh'
+gem 'pushwoosh', '~> 1.0'
 
 # Messages
-gem 'pusher'
+gem 'pusher', '~> 1.3'
 
 # SendGrid
-gem 'sendgrid'
+gem 'sendgrid', '~> 1.2'
+
+# files management
+gem 'carrierwave', '~> 0.11'
+gem 'carrierwave-base64', '~> 2.3'
+gem "mini_magick", '~> 4.5'
+gem "fog", '~> 1.38'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

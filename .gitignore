@@ -19,7 +19,7 @@ config/secrets.yml
 config/application.yml
 .byebug_history
 .env
-
+/public/uploads/tmp
 ## Environment normalisation:
 /.bundle
 /vendor/bundle
