@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826193308) do
+ActiveRecord::Schema.define(version: 20160901151407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,10 +69,13 @@ ActiveRecord::Schema.define(version: 20160826193308) do
 
   create_table "match_conversations", force: :cascade do |t|
     t.integer  "topic_id"
-    t.integer  "user_A_id"
-    t.integer  "user_B_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_a_id"
+    t.integer  "user_b_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "channel_id"
+    t.datetime "last_logout_a"
+    t.datetime "last_logout_b"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -108,6 +111,7 @@ ActiveRecord::Schema.define(version: 20160826193308) do
     t.string   "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "icon"
   end
 
   create_table "users", force: :cascade do |t|
@@ -126,7 +130,7 @@ ActiveRecord::Schema.define(version: 20160826193308) do
     t.datetime "updated_at"
     t.integer  "gender"
     t.string   "name"
-    t.string   "channel_id"
+    t.string   "image"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

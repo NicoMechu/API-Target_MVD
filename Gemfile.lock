@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    CFPropertyList (2.3.2)
     actionmailer (4.2.7.1)
       actionpack (= 4.2.7.1)
       actionview (= 4.2.7.1)
@@ -74,6 +75,14 @@ GEM
       thor (~> 0.19)
     builder (3.2.2)
     byebug (8.2.5)
+    carrierwave (0.11.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+      mimemagic (>= 0.3.0)
+    carrierwave-base64 (2.3.1)
+      carrierwave (>= 0.8.0, < 0.12.0)
     code_analyzer (0.4.7)
       sexp_processor
     coderay (1.1.1)
@@ -109,6 +118,7 @@ GEM
       railties (>= 4.0, < 5.1)
     erubis (2.7.0)
     eventmachine (1.2.0.1)
+    excon (0.52.0)
     execjs (2.7.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -119,6 +129,135 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    fission (0.5.0)
+      CFPropertyList (~> 2.2)
+    fog (1.38.0)
+      fog-aliyun (>= 0.1.0)
+      fog-atmos
+      fog-aws (>= 0.6.0)
+      fog-brightbox (~> 0.4)
+      fog-cloudatcost (~> 0.1.0)
+      fog-core (~> 1.32)
+      fog-dynect (~> 0.0.2)
+      fog-ecloud (~> 0.1)
+      fog-google (<= 0.1.0)
+      fog-json
+      fog-local
+      fog-openstack
+      fog-powerdns (>= 0.1.1)
+      fog-profitbricks
+      fog-rackspace
+      fog-radosgw (>= 0.0.2)
+      fog-riakcs
+      fog-sakuracloud (>= 0.0.4)
+      fog-serverlove
+      fog-softlayer
+      fog-storm_on_demand
+      fog-terremark
+      fog-vmfusion
+      fog-voxel
+      fog-vsphere (>= 0.4.0)
+      fog-xenserver
+      fog-xml (~> 0.1.1)
+      ipaddress (~> 0.5)
+    fog-aliyun (0.1.0)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      ipaddress (~> 0.8)
+      xml-simple (~> 1.1)
+    fog-atmos (0.1.0)
+      fog-core
+      fog-xml
+    fog-aws (0.11.0)
+      fog-core (~> 1.38)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-brightbox (0.11.0)
+      fog-core (~> 1.22)
+      fog-json
+      inflecto (~> 0.0.2)
+    fog-cloudatcost (0.1.2)
+      fog-core (~> 1.36)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (1.42.0)
+      builder
+      excon (~> 0.49)
+      formatador (~> 0.2)
+    fog-dynect (0.0.3)
+      fog-core
+      fog-json
+      fog-xml
+    fog-ecloud (0.3.0)
+      fog-core
+      fog-xml
+    fog-google (0.1.0)
+      fog-core
+      fog-json
+      fog-xml
+    fog-json (1.0.2)
+      fog-core (~> 1.0)
+      multi_json (~> 1.10)
+    fog-local (0.3.0)
+      fog-core (~> 1.27)
+    fog-openstack (0.1.12)
+      fog-core (>= 1.40)
+      fog-json (>= 1.0)
+      ipaddress (>= 0.8)
+    fog-powerdns (0.1.1)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+    fog-profitbricks (0.0.5)
+      fog-core
+      fog-xml
+      nokogiri
+    fog-rackspace (0.1.1)
+      fog-core (>= 1.35)
+      fog-json (>= 1.0)
+      fog-xml (>= 0.1)
+      ipaddress (>= 0.8)
+    fog-radosgw (0.0.5)
+      fog-core (>= 1.21.0)
+      fog-json
+      fog-xml (>= 0.0.1)
+    fog-riakcs (0.1.0)
+      fog-core
+      fog-json
+      fog-xml
+    fog-sakuracloud (1.7.5)
+      fog-core
+      fog-json
+    fog-serverlove (0.1.2)
+      fog-core
+      fog-json
+    fog-softlayer (1.1.4)
+      fog-core
+      fog-json
+    fog-storm_on_demand (0.1.1)
+      fog-core
+      fog-json
+    fog-terremark (0.1.0)
+      fog-core
+      fog-xml
+    fog-vmfusion (0.1.0)
+      fission
+      fog-core
+    fog-voxel (0.1.0)
+      fog-core
+      fog-xml
+    fog-vsphere (1.0.1)
+      fog-core
+      rbvmomi (~> 1.8.0)
+    fog-xenserver (0.2.3)
+      fog-core
+      fog-xml
+    fog-xml (0.1.2)
+      fog-core
+      nokogiri (~> 1.5, >= 1.5.11)
+    formatador (0.2.5)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -132,13 +271,15 @@ GEM
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    httpclient (2.8.2.2)
+    httpclient (2.8.2.3)
     i18n (0.7.0)
+    inflecto (0.0.2)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 5)
       responders
+    ipaddress (0.8.3)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -168,6 +309,8 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mimemagic (0.3.2)
+    mini_magick (4.5.1)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
@@ -253,6 +396,10 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.3)
+    rbvmomi (1.8.2)
+      builder
+      nokogiri (>= 1.4.1)
+      trollop
     rdoc (4.2.2)
       json (~> 1.4)
     reek (1.3.8)
@@ -319,7 +466,7 @@ GEM
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.1.1)
+    sprockets-rails (3.2.0)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -330,6 +477,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -337,6 +485,7 @@ GEM
       json (>= 1.8.0)
     warden (1.2.6)
       rack (>= 1.0)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
@@ -347,25 +496,29 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.1.2)
   better_errors (~> 2.1.1)
   binding_of_caller (~> 0.7.2)
+  carrierwave (~> 0.11)
+  carrierwave-base64 (~> 2.3)
   daemons
   database_cleaner (~> 1.4.1)
   delayed_job_active_record (~> 4.0.3)
   devise (~> 3.5.1)
   devise-async (~> 0.10.1)
-  dotenv-rails
+  dotenv-rails (~> 2.1)
   factory_girl_rails (~> 4.5.0)
   faker (~> 1.4.3)
+  fog (~> 1.38)
   haml (~> 4.0.6)
   jbuilder (~> 1.2)
-  kaminari
+  kaminari (~> 0.16)
   koala (~> 1.10.0rc)
   letter_opener (~> 1.4.1)
+  mini_magick (~> 4.5)
   paranoia (~> 2.0)
   pg (~> 0.18.4)
   pry-byebug (~> 3.3.0)
   pry-rails (~> 0.3.4)
-  pusher
-  pushwoosh
+  pusher (~> 1.3)
+  pushwoosh (~> 1.0)
   quiet_assets (~> 1.1.0)
   rack-cors (~> 0.4.0)
   rails (~> 4.2.6)
@@ -375,7 +528,7 @@ DEPENDENCIES
   rspec-rails (~> 3.3.2)
   rubocop (~> 0.32.1)
   sdoc
-  sendgrid
+  sendgrid (~> 1.2)
   shoulda-matchers (~> 2.8.0)
   simple_token_authentication (~> 1.6.0)
   spork-rails (~> 4.0.0)

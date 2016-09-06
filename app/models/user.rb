@@ -19,7 +19,7 @@
 #  updated_at             :datetime
 #  gender                 :integer
 #  name                   :string
-#  channel_id             :string
+#  image                  :string
 #
 # Indexes
 #
@@ -33,9 +33,13 @@ class User < ActiveRecord::Base
   include Authenticable
   include Facebookeable
 
+  mount_base64_uploader :image, AvatarUploader
+
+  # before_save :decode_image 
+
   has_many :targets , dependent: :destroy
-  has_many :matches, :class_name => 'MatchConversation', :foreign_key => 'user_A_id', dependent: :destroy
-  has_many :inverse_matches, :class_name => 'MatchConversation', :foreign_key => 'user_B_id', dependent: :destroy
+  has_many :matches, :class_name => 'MatchConversation', :foreign_key => 'user_a_id', dependent: :destroy
+  has_many :inverse_matches, :class_name => 'MatchConversation', :foreign_key => 'user_b_id', dependent: :destroy
   has_many :push_tokens, dependent: :destroy
 
   enum gender: [:female , :male]
@@ -45,24 +49,27 @@ class User < ActiveRecord::Base
   validates :password, presence: true unless :facebook_id.present?
   validates :facebook_id, uniqueness: true,allow_blank: true, allow_nil: true
   validates :gender, presence: true
-  validates :channel_id, uniqueness: true
-
-  before_validation :set_channel_id, on: [:create, :update]
 
   def to_s
     return name
   end
 
+  def decode_image
+    image = Base64.decode64(image)
+  end
+
+  def as_json(options={})
+    { 
+      name: self.name, 
+      email: self.email, 
+      gender: self.gender, 
+      user_id: self.id,
+      image: self.image.url
+    }
+  end
+
   def all_matches
-    matches.merge(inverse_matches).order(created_at: :desc)
+    MatchConversation.where("user_a_id = :user or user_b_id = :user", { user: id } ).order(created_at: :desc)
   end
-
-  def set_channel_id #TODO
-    self.channel_id = loop do
-      temp = SecureRandom.urlsafe_base64(16)
-      break temp unless User.find_by(channel_id: temp).present?
-    end
-  end
-
 end
 

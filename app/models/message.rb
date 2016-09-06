@@ -20,6 +20,23 @@ class Message < ActiveRecord::Base
 
   scope :recent, -> { order('created_at DESC') }
 
+  scope :lastOne, -> { recent.first }
+
+  scope :after, -> (time) { where(' updated_at > ? ', time) }
+
+  def receiver
+    match_conversation.other_party(user)
+  end
+  
+  def as_json(options={})
+    { 
+      id: self.id, 
+      text: self.text, 
+      match_conversation: self.match_conversation_id,
+      sender: self.user_id
+    }
+  end
+
   protected
     def send_message
       NotificationService.send_message(self)

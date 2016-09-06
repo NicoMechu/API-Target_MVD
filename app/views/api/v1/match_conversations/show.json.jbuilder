@@ -1,7 +1,8 @@
-json.match_id   @match.id
-json.topic      @match.topic.id
-if @match.user_A.id != current_user.id?
-  json.user     @match.user_A.id
-else
-  json.user     @match.user_B.id
-end
+json.match_id     @match.id
+json.topic        @match.topic.id
+json.user         @match.other_party(current_user)
+json.channel_id   @match.channel_id
+json.unreaded     @match.unreaded(current_user).count
+json.last_message @match.messages.lastOne
+
+

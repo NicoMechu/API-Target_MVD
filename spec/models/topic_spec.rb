@@ -6,6 +6,7 @@
 #  label      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  icon       :string
 #
 
 require 'rails_helper'

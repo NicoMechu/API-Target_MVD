@@ -18,6 +18,7 @@ Railsroot::Application.routes.draw do
         resources :targets
         resources :push_tokens, only: [:create]
         resources :match_conversations, only: [:index, :show] do
+          post 'close'
           resources :messages, only: [:create, :index]
         end
       end

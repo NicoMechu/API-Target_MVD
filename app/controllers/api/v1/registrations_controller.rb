@@ -11,11 +11,14 @@ module Api
         resource_saved = resource.save
         if resource_saved
           save_success
-          render json: { token: resource.authentication_token,
+          render json: { 
+            token: resource.authentication_token,
             email: resource.email, 
             name:resource.name, 
             gender:resource.gender, 
-            user_id:resource.id  }
+            user_id:resource.id,
+            image: resource.image.url 
+          }
         else
           save_fail
           render json: { errors: resource.errors }, status: :bad_request
@@ -41,7 +44,7 @@ module Api
       def configure_permitted_parameters
         devise_parameter_sanitizer.for :sign_up do |params|
           params.permit(
-            :name, :gender , :email , :password, :password_confirmation
+            :name, :gender , :email , :password, :password_confirmation, :image
           )
         end
       end
