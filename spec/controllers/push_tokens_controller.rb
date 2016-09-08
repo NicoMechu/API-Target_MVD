@@ -14,7 +14,7 @@ render_views
 
   describe "Create push token" do
     describe "valid params" do
-      it 'should change the amunt of Push Tokens' do
+      it 'should change the amount of Push Tokens' do
         expect { 
           post :create, 
           user_id: @user.id, 
@@ -25,7 +25,7 @@ render_views
     end
 
     describe "invalid params" do
-      it 'should not change the amunt of Push Tokens' do
+      it 'should not change the amount of Push Tokens' do
         expect { post :create, 
           user_id: @user.id, 
           push_token: "#{@push_token.push_token}" 

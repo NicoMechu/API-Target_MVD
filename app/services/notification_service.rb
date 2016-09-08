@@ -14,6 +14,7 @@ class NotificationService
     def send_message(message)
       match = message.match_conversation
       Pusher[match.channel_id].trigger('new_message', {
+        id: message.id,
         author: message.user.as_json(only: [:id, :name, :gender]),
         match_conversation_id: match.id,
         text: message.text,

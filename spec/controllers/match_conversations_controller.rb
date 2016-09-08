@@ -23,21 +23,21 @@ describe Api::V1::MatchConversationsController do
   end
 
   describe 'show' do
-    it 'should retrun correct response' do
+    it 'should return correct response' do
       get :show, user_id: @user.id, id:@match.id, format: 'json' 
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['user']['user_id']).to eq @match.other_party(@user).id
-      expect(parsed_response['unreaded']).to eq 2
+      expect(parsed_response['unread']).to eq 2
       expect(parsed_response['last_message']['id']).to eq @message_last.id
     end
   end
 
   describe 'close' do
-    it 'should change the amount of unreaded messages to 0' do
+    it 'should change the amount of unread messages to 0' do
       post  :close, user_id: @user.id, match_conversation_id: @match.id, format: 'json'
       get   :show,  user_id: @user.id, id: @match.id, format: 'json'
       parsed_response = JSON.parse(response.body)
-      expect(parsed_response['unreaded']).to eq 0
+      expect(parsed_response['unread']).to eq 0
     end
   end
 end

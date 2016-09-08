@@ -23,7 +23,7 @@ describe Api::V1::MessagesController do
 
   describe 'POST create' do
     describe 'with valid params' do
-      it 'should change the amunt of Messages' do
+      it 'should change the amount of Messages' do
         expect { 
           post :create, 
           user_id: @user.id, 
@@ -47,7 +47,7 @@ describe Api::V1::MessagesController do
     end
 
     describe 'with invalid params' do
-      it 'should not change the amunt of Messages' do
+      it 'should not change the amount of Messages' do
         expect { 
           post :create, 
           user_id: @user.id, 

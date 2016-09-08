@@ -37,7 +37,7 @@ The body should contain:
 }
 ```
 
-And retruns:
+And returns:
 
 ```
 {
@@ -407,7 +407,7 @@ This returns the new target with a list of others targets wich had matched:
         }
       },
       "channel_id": <channel_id: String>,
-      "unreaded": <unreaded: Number>,
+      "unread": <unread: Number>,
       "last_message": []
     }
   ]

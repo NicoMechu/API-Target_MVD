@@ -32,7 +32,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
     end
 
     context 'with valid params' do
-      it 'should change the amunt of Targets' do
+      it 'should change the amount of Targets' do
         expect { post :create, user_id: @user.id, target: @params , format: 'json' }.to change { Target.count }.by(1)
       end
 
@@ -65,7 +65,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
           }
         end
 
-        it 'should not change the amunt of Targets' do
+        it 'should not change the amount of Targets' do
           expect { post :create, user_id: @user.id, target: @params_invalid , format: 'json' }.not_to change { Target.count }
         end
 
@@ -80,7 +80,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
           @params = {at: 'invalid', lng: -56.16974831, radius: 1000}
         end
 
-        it 'should not change the amunt of Targets' do
+        it 'should not change the amount of Targets' do
           expect { post :create, user_id: @user.id, target: @params , format: 'json' }.not_to change { Target.count }
         end
 
@@ -113,7 +113,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
     end
 
     context 'with valid params' do
-      it 'should not change the amunt of Targets' do
+      it 'should not change the amount of Targets' do
         expect { put :update, 
           user_id: @user.id, 
           id: @target.id, 

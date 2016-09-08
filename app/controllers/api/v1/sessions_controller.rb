@@ -3,7 +3,10 @@
 module Api
   module V1
     class SessionsController < Devise::SessionsController
+      include Concerns::Authenticable
+      skip_before_filter :verify_signed_out_user 
       skip_before_filter :verify_authenticity_token, if: :json_request?
+      before_action :invalidate_token, only:[:destroy]
 
       # POST /resource/sign_in
       def create
@@ -39,11 +42,9 @@ module Api
         }
       end
 
-      # DELETE /resource/sign_out
-      def destroy
-        # expire auth token
+      # Before the action "Destroy" it invalidates the current_user's token
+      def invalidate_token
         current_user.invalidate_token
-        head :no_content
       end
 
       def failure
