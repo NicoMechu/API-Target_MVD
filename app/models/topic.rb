@@ -22,9 +22,9 @@ class Topic < ActiveRecord::Base
 
   def as_json(options={})
     { 
-      id: self.id,
-      label: self.label, 
-      icon: self.icon.url
+      id:     id,
+      label:  label, 
+      icon:   icon.url
     }
   end
 end

@@ -47,9 +47,9 @@ class MatchConversation < ActiveRecord::Base
   
   def close_chat(user)
     if user == user_a
-      self.last_logout_a = Time.now
+      last_logout_a = Time.now
     else
-      self.last_logout_b = Time.now
+      last_logout_b = Time.now
     end
   end
 
@@ -59,7 +59,7 @@ class MatchConversation < ActiveRecord::Base
     end
 
     def set_channel_id
-      self.channel_id = loop do
+      channel_id = loop do
         temp = SecureRandom.urlsafe_base64(16)
         break temp unless MatchConversation.find_by(channel_id: temp).present?
       end

@@ -30,10 +30,20 @@ class Message < ActiveRecord::Base
   
   def as_json(options={})
     { 
-      id: self.id, 
-      text: self.text, 
-      match_conversation: self.match_conversation_id,
-      sender: self.user_id
+      id:   id, 
+      text: text, 
+      match_conversation: match_conversation_id,
+      sender:  user_id,
+      time:{
+          date:{
+            day:   updated_at.day,
+            month: updated_at.month,
+            year:  updated_at.year
+          },
+          hour: updated_at.hour,
+          min:  updated_at.min,
+          sec:  updated_at.sec
+      }
     }
   end
 

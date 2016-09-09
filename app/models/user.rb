@@ -60,11 +60,11 @@ class User < ActiveRecord::Base
 
   def as_json(options={})
     { 
-      name: self.name, 
-      email: self.email, 
-      gender: self.gender, 
-      user_id: self.id,
-      image: self.image.url
+      name:    name, 
+      email:   email, 
+      gender:  gender, 
+      user_id: id,
+      image:   image.url
     }
   end
 
