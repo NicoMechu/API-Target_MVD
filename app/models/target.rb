@@ -35,6 +35,7 @@ class Target < ActiveRecord::Base
   end
 
   def matches
+
     # Query to find targets present in a square circumscribed around a circle whis radius is equal to the addition
     # of the raidius of both targets.
     box_query     = "earth_box(ll_to_earth(#{lat},#{lng}),"\

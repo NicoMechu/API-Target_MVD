@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def decode_image
-    image = Base64.decode64(image)
+    self.image = Base64.decode64(image)
   end
 
   def as_json(options={})
