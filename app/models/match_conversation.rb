@@ -36,7 +36,7 @@ class MatchConversation < ActiveRecord::Base
     current_user == user_a ? user_b : user_a
   end
 
-  def unreaded(user)
+  def unread(user)
     last_logout = user_a_id == user.id ? last_logout_a : last_logout_b
     if last_logout.nil?
       messages.all

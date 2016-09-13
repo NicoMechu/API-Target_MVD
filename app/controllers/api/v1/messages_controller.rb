@@ -10,7 +10,8 @@ module Api
         unless @message.save
           render json: { errors: @message.errors }, status: :bad_request and return 
         end
-      end
+        render partial: 'api/v1/messages/message' , locals: {message: @message} 
+    end
 
       def index
         @match = current_user.all_matches.find_by_id(params[:match_conversation_id])
