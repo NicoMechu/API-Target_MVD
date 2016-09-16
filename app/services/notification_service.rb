@@ -4,7 +4,6 @@ class NotificationService
       options = 
       {
         send_date: "now",
-        # content: { :fr  => "Test", :en  => "Test" },
         data:  match.to_json
       }
       Pushwoosh.notify_devices('Congratulations you have a new match! :D', match.user_b.push_tokens.pluck(:push_token), options)
@@ -13,8 +12,13 @@ class NotificationService
 
     def send_message(message)
       match = message.match_conversation
+      options = 
+      {
+        send_date: "now",
+        data:  message.as_json
+      }
       Pusher[match.channel_id].trigger('new_message', message.as_json )
-      Pushwoosh.notify_devices("New message from #{message.user.name}", message.receiver.push_tokens.pluck(:push_token))
+      Pushwoosh.notify_devices("New message from #{message.user.name}", message.receiver.push_tokens.pluck(:push_token), options)
     end
     # handle_asynchronously :send_message, priority: 1 # The priority for sending message is higer than
                                                        # match notification because the fluentcy of the 
