@@ -11,6 +11,8 @@
 #  channel_id    :string
 #  last_logout_a :datetime
 #  last_logout_b :datetime
+#  title_a       :string
+#  title_b       :string
 #
 
 FactoryGirl.define do

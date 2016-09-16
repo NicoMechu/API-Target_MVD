@@ -11,6 +11,8 @@
 #  channel_id    :string
 #  last_logout_a :datetime
 #  last_logout_b :datetime
+#  title_a       :string
+#  title_b       :string
 #
 
 class MatchConversation < ActiveRecord::Base
@@ -32,8 +34,12 @@ class MatchConversation < ActiveRecord::Base
     end
   end
 
-  def other_party(current_user)
-    current_user == user_a ? user_b : user_a
+  def other_party(user)
+    user == user_a ? user_b : user_a
+  end
+
+  def title(user)
+    user == user_a ? title_a : title_b
   end
 
   def unread(user)

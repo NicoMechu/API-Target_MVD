@@ -43,6 +43,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
         expect(parsed_response['target']['longitude']).to         eq -56.16974831
         expect(parsed_response['target']['radius']).to            eq 1000
         expect(parsed_response['target']['topic']['label']).to    eq @topic.label
+        expect(parsed_response['matches'].first['title']).to      eq parsed_response['target']['title']
         expect(parsed_response['matches'].count).to               eq 1
       end
     end
@@ -108,7 +109,8 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
         lat:        -34.91831144,
         lng:        -56.16657257,
         radius:     1000,
-        topic_id:      @topic.id
+        topic_id:   @topic.id,
+        title:      "Test"
       }
     end
 
@@ -128,6 +130,7 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
         expect(parsed_response['target']['longitude']).to         eq -56.16657257
         expect(parsed_response['target']['radius']).to            eq 1000
         expect(parsed_response['target']['topic']['label']).to    eq @topic.label
+        expect(parsed_response['matches'].first['title']).to      eq "Test"
         expect(parsed_response['matches'].count).to               eq 1
       end
     end
