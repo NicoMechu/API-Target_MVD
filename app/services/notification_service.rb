@@ -13,13 +13,7 @@ class NotificationService
 
     def send_message(message)
       match = message.match_conversation
-      Pusher[match.channel_id].trigger('new_message', {
-        id: message.id,
-        author: message.user.as_json(only: [:id, :name, :gender]),
-        match_conversation_id: match.id,
-        text: message.text,
-        time: message.updated_at
-      })
+      Pusher[match.channel_id].trigger('new_message', message.as_json )
       Pushwoosh.notify_devices("New message from #{message.user.name}", message.receiver.push_tokens.pluck(:push_token))
     end
     # handle_asynchronously :send_message, priority: 1 # The priority for sending message is higer than
