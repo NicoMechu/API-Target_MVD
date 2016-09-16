@@ -50,7 +50,12 @@ class Target < ActiveRecord::Base
     
     matches = []
     matching_targets.each do |matching_target|
-      match = MatchConversation.new(user_a: user, user_b: matching_target.user, topic: topic)
+      match = MatchConversation.new(user_a: user, 
+        user_b: matching_target.user, 
+        topic: topic, 
+        title_a:title, 
+        title_b:matching_target.title
+      )
       match.save && matches << match
     end
     matches
