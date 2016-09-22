@@ -20,6 +20,8 @@ class Message < ActiveRecord::Base
 
   scope :recent, -> { order('created_at DESC') }
 
+  scope :before, -> (id) { where(' id < ? ', id)}
+
   scope :lastOne, -> { recent.first }
 
   scope :after, -> (time) { where(' updated_at > ? ', time) }

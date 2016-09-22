@@ -8,6 +8,8 @@ describe Api::V1::UsersController do
   before(:each) do
     @user = FactoryGirl.create(:user)
     @friend = FactoryGirl.create(:user)
+    request.headers['Content-Type'] =  "application/json"
+    request.headers['X-USER-TOKEN'] =  @user.authentication_token
   end
 
   describe "PUT 'update/:id'" do
@@ -37,6 +39,25 @@ describe Api::V1::UsersController do
       @user.reload
       expect(@user.name).to_not eq @attr[:name]
       expect(response.response_code).to eq 400
+    end
+  end
+
+  describe "GET :id/unread_conversations" do
+
+    it 'should return the correct count of unread conversations' do
+      @match_1 = FactoryGirl.create(:match_conversation, user_a: @user)
+      @match_2 = FactoryGirl.create(:match_conversation, user_a: @user)
+      @match_3 = FactoryGirl.create(:match_conversation, user_a: @user)
+      5.times do
+        FactoryGirl.create(:message, match_conversation: @match_1)
+      end
+      2.times do
+        FactoryGirl.create(:message, match_conversation: @match_2)
+      end
+      get :unread_conversations, user_id: @user.id
+      expect(response.response_code).to eq 200
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['unread_matches']).to eq 2
     end
   end
 end

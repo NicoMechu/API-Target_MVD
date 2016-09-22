@@ -19,7 +19,11 @@ module Api
           render json: { errors: "There isn't any match with that ID." }, 
             status: :bad_request and return 
         end
-        @messages = @match.messages.recent.page( params[:page] || 1 )
+        if params[:last]
+          @messages = @match.messages.before(params[:last]).recent.page(1)
+        else
+          @messages = @match.messages.recent.page(1)
+        end
       end
 
       private

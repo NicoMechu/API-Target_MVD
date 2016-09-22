@@ -14,6 +14,7 @@ Railsroot::Application.routes.draw do
   namespace :api, defaults: { format: :json }  do
     namespace :v1 do
       resources :users, only: [:update] do
+        get  'unread_conversations'
         put '/password/change', action: :change_password
         resources :targets
         resources :push_tokens, only: [:create]
