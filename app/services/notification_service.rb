@@ -4,7 +4,15 @@ class NotificationService
       options = 
       {
         send_date: "now",
-        data:  match.to_json
+        data: {
+                id:           match.id,
+                topic:        match.topic,
+                user:         match.user_a,
+                title:        match.title_b,
+                channel_id:   match.channel_id,
+                unread:       match.unread(match.user_b),
+                last_message: match.messages.lastOne
+              }
       }
       Pushwoosh.notify_devices('Congratulations you have a new match! :D', match.user_b.push_tokens.pluck(:push_token), options)
     end

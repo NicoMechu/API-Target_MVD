@@ -25,7 +25,7 @@ class MatchConversation < ActiveRecord::Base
   validates  :channel_id, uniqueness: true
 
   before_validation :set_channel_id, on: [:create, :update]
-  after_save        :notify
+  after_create      :notify
 
   def match_uniqueness
     matches_topic = MatchConversation.where(topic_id: topic_id)

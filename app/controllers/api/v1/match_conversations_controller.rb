@@ -3,11 +3,6 @@ module Api
     class MatchConversationsController < Api::V1::ApiController
       def index
         @matches = current_user.all_matches
-        @list = {}
-        @matches.each do |match|
-          @list[match.id] = match.unread(current_user).count
-        end
-        @unread = @list.values.count {|val| val > 0}
       end
 
       def show

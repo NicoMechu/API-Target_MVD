@@ -39,6 +39,11 @@ module Api
         end
       end
 
+      def unread_conversations
+        unread = current_user.all_matches.select{|m| m.unread(current_user).count > 0 }
+        render json: { unread_matches: unread.count} and return
+      end
+
       private
 
       def render_bad_request
