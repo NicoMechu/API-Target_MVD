@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   end
 
   def all_matches
-    MatchConversation.where("user_a_id = :user or user_b_id = :user", { user: id } ).order(created_at: :desc)
+    MatchConversation.where("(user_a_id = :user AND visible_a = true) OR (user_b_id = :user AND visible_b = true)", { user: id } ).order(created_at: :desc)
   end
 end
 

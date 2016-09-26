@@ -150,6 +150,6 @@ RSpec.describe  Api::V1::TargetsController, type: :controller do
         delete :destroy, user_id: @user.id, id: @target.id, format: 'json' 
         expect(response.status).to eq 400
       end
-    end 
+    end
   end
 end

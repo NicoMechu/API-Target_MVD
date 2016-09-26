@@ -6,12 +6,7 @@ module Api
       # PUT /api/v1/users/:id
       def update
         if current_user.update(user_params)
-          render json: {
-            user_id: current_user.id, 
-            name: current_user.name, 
-            email: current_user.email,
-            authentication_token: current_user.authentication_token
-          }
+          render json: current_user
         else
           render json: { errors: current_user.errors.as_json }, status: :bad_request
         end
@@ -32,6 +27,7 @@ module Api
             user_id: current_user.id, 
             name: current_user.name, 
             email: current_user.email,
+            image: current_user.image.url,
             authentication_token: current_user.authentication_token
           }
         else

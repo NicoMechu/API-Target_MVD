@@ -13,6 +13,10 @@
 #  last_logout_b :datetime
 #  title_a       :string
 #  title_b       :string
+#  target_a_id   :integer
+#  target_b_id   :integer
+#  visible_a     :boolean          default(TRUE)
+#  visible_b     :boolean          default(TRUE)
 #
 
 class MatchConversation < ActiveRecord::Base
@@ -24,12 +28,15 @@ class MatchConversation < ActiveRecord::Base
   validate   :match_uniqueness, on: :create
   validates  :channel_id, uniqueness: true
 
-  before_validation :set_channel_id, on: [:create, :update]
-  after_create      :notify
-
+  before_create  :set_channel_id
+  after_create   :notify
+  
   def match_uniqueness
     matches_topic = MatchConversation.where(topic_id: topic_id)
-    if matches_topic.where(user_a_id: [user_a_id, user_b_id]).where(user_b_id: [user_a_id, user_b_id]).any?
+    if matches_topic.where(user_a_id: [user_a_id, user_b_id])
+      .where(user_b_id: [user_a_id, user_b_id])
+      .select{|match| match.active?}
+      .any?
       errors.add(:already_matched, "Already Matched")
     end
   end
@@ -51,6 +58,19 @@ class MatchConversation < ActiveRecord::Base
     end
   end
   
+  def active?
+    !target_b_id.nil? && !target_a_id.nil? && visible_a && visible_b
+  end
+
+  def invisible(user)
+    if user == user_a
+      self.visible_a = false 
+    else
+      self.visible_b = false 
+    end
+    return visible_a || visible_b ? self.save : self.destroy
+  end
+
   def close_chat(user)
     if user == user_a
       self.last_logout_a = Time.now

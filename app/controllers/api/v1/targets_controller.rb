@@ -25,7 +25,6 @@ module Api
 
       def destroy
         @target = current_user.targets.find_by_id(params[:id])
-
         if @target.nil?
           render json: { errors: ['There is no target with this ID'] }, status: :bad_request and return 
         end
@@ -39,8 +38,10 @@ module Api
         if @target.nil?
           render json: { errors: ['There is no target with this ID'] }, status: :bad_request and return 
         end
+        if target_params['topic_id'] != @target.topic_id
+          @target.inactivate_matches
+        end
         @target.update_attributes(target_params)
-
         if @target.save 
           @matches = @target.matches
           render :new_target

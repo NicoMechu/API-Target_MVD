@@ -6,6 +6,9 @@ module Api
         unless @match
           render json: { errors:  "There aren't any Matches with this ID"}, status: :bad_request and return 
         end
+        unless @match.active?
+          render json: { errors:  "This match isn't active anymore."}, status: :bad_request and return 
+        end 
         @message = Message.new(user: current_user, match_conversation: @match, text: message_params[:text])
         unless @message.save
           render json: { errors: @message.errors }, status: :bad_request and return 

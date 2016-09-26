@@ -17,7 +17,6 @@ class NotificationService
       Pushwoosh.notify_devices('Congratulations you have a new match! :D', match.user_b.push_tokens.pluck(:push_token), options)
     end
     # handle_asynchronously :notify_match, priority: 2
-
     def send_message(message)
       match = message.match_conversation
       options = 

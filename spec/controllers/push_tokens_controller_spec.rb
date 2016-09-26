@@ -20,7 +20,7 @@ render_views
           user_id: @user.id, 
           push_token: "#{ Faker::Lorem.characters(20) }" ,
           format: 'json' 
-          }.to change { Target.count }.by(1)
+          }.to change { PushToken.count }.by(1)
       end
     end
 
@@ -28,9 +28,9 @@ render_views
       it 'should not change the amount of Push Tokens' do
         expect { post :create, 
           user_id: @user.id, 
-          push_token: "#{@push_token.push_token}" 
+          push_token: "#{@push_token.push_token}", 
           format: 'json' 
-          }.not_to change { Target.count }
+          }.not_to change { PushToken.count }
       end
     end
   end
