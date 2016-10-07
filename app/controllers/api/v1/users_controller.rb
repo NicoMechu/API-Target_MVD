@@ -27,6 +27,7 @@ module Api
             user_id: current_user.id, 
             name: current_user.name, 
             email: current_user.email,
+            image: current_user.image.url,
             authentication_token: current_user.authentication_token
           }
         else

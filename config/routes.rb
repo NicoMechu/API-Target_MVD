@@ -18,7 +18,7 @@ Railsroot::Application.routes.draw do
         put '/password/change', action: :change_password
         resources :targets
         resources :push_tokens, only: [:create]
-        resources :match_conversations, only: [:index, :show] do
+        resources :match_conversations do
           post 'close'
           resources :messages, only: [:create, :index]
         end

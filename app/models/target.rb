@@ -20,9 +20,15 @@
 
 class Target < ActiveRecord::Base
   acts_as_paranoid
+
   belongs_to :user
   belongs_to :topic
+
+  has_many :matches,         class_name: 'MatchConversation', foreign_key: 'target_a_id'
+  has_many :inverse_matches, class_name: 'MatchConversation', foreign_key: 'target_b_id'
   
+  after_destroy :inactivate_matches
+
   validates :lat, :lng, :radius, presence: true
   validate :not_exceeded_limit?, on: :create
 
@@ -33,6 +39,19 @@ class Target < ActiveRecord::Base
       errors.add(:limit, "Targets limit exceeded")
     end
   end
+
+  def all_matches
+    MatchConversation.where("target_a_id = :target or target_b_id = :target", { target: id } )
+  end
+
+  def inactivate_matches
+    self.all_matches.each do |match|
+      match.target_a_id = nil
+      match.target_b_id = nil
+      match.save
+    end
+  end
+
 
   def matches
 
@@ -54,7 +73,9 @@ class Target < ActiveRecord::Base
         user_b: matching_target.user, 
         topic: topic, 
         title_a:title, 
-        title_b:matching_target.title
+        title_b:matching_target.title,
+        target_a_id:id,
+        target_b_id:matching_target.id
       )
       match.save && matches << match
     end
